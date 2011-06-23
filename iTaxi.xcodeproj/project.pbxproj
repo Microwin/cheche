@@ -1,0 +1,285 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4108673713B32803006F0B7B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4108673613B32803006F0B7B /* UIKit.framework */; };
+		4108673913B32803006F0B7B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4108673813B32803006F0B7B /* Foundation.framework */; };
+		4108673B13B32803006F0B7B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4108673A13B32803006F0B7B /* CoreGraphics.framework */; };
+		4108674113B32803006F0B7B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4108673F13B32803006F0B7B /* InfoPlist.strings */; };
+		4108674413B32803006F0B7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108674313B32803006F0B7B /* main.m */; };
+		4108674713B32803006F0B7B /* iTaxiAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108674613B32803006F0B7B /* iTaxiAppDelegate.m */; };
+		4108674A13B32803006F0B7B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4108674813B32803006F0B7B /* MainWindow.xib */; };
+		4108674D13B32803006F0B7B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108674C13B32803006F0B7B /* MainViewController.m */; };
+		4108674F13B32803006F0B7B /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4108674E13B32803006F0B7B /* MainView.xib */; };
+		4108675213B32803006F0B7B /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108675113B32803006F0B7B /* FlipsideViewController.m */; };
+		4108675413B32803006F0B7B /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4108675313B32803006F0B7B /* FlipsideView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4108673213B32803006F0B7B /* iTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4108673613B32803006F0B7B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4108673813B32803006F0B7B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4108673A13B32803006F0B7B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4108673E13B32803006F0B7B /* iTaxi-Info.plist */ = {isa = PBXFileReference; path = "iTaxi-Info.plist"; sourceTree = "<group>"; };
+		4108674013B32803006F0B7B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4108674213B32803006F0B7B /* iTaxi-Prefix.pch */ = {isa = PBXFileReference; path = "iTaxi-Prefix.pch"; sourceTree = "<group>"; };
+		4108674313B32803006F0B7B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4108674513B32803006F0B7B /* iTaxiAppDelegate.h */ = {isa = PBXFileReference; path = iTaxiAppDelegate.h; sourceTree = "<group>"; };
+		4108674613B32803006F0B7B /* iTaxiAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iTaxiAppDelegate.m; sourceTree = "<group>"; };
+		4108674913B32803006F0B7B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		4108674B13B32803006F0B7B /* MainViewController.h */ = {isa = PBXFileReference; path = MainViewController.h; sourceTree = "<group>"; };
+		4108674C13B32803006F0B7B /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		4108674E13B32803006F0B7B /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
+		4108675013B32803006F0B7B /* FlipsideViewController.h */ = {isa = PBXFileReference; path = FlipsideViewController.h; sourceTree = "<group>"; };
+		4108675113B32803006F0B7B /* FlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlipsideViewController.m; sourceTree = "<group>"; };
+		4108675313B32803006F0B7B /* FlipsideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlipsideView.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4108672F13B32803006F0B7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4108673713B32803006F0B7B /* UIKit.framework in Frameworks */,
+				4108673913B32803006F0B7B /* Foundation.framework in Frameworks */,
+				4108673B13B32803006F0B7B /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4108672713B32803006F0B7B = {
+			isa = PBXGroup;
+			children = (
+				4108673C13B32803006F0B7B /* iTaxi */,
+				4108673513B32803006F0B7B /* Frameworks */,
+				4108673313B32803006F0B7B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4108673313B32803006F0B7B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4108673213B32803006F0B7B /* iTaxi.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4108673513B32803006F0B7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4108673613B32803006F0B7B /* UIKit.framework */,
+				4108673813B32803006F0B7B /* Foundation.framework */,
+				4108673A13B32803006F0B7B /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4108673C13B32803006F0B7B /* iTaxi */ = {
+			isa = PBXGroup;
+			children = (
+				4108674513B32803006F0B7B /* iTaxiAppDelegate.h */,
+				4108674613B32803006F0B7B /* iTaxiAppDelegate.m */,
+				4108674813B32803006F0B7B /* MainWindow.xib */,
+				4108674B13B32803006F0B7B /* MainViewController.h */,
+				4108674C13B32803006F0B7B /* MainViewController.m */,
+				4108674E13B32803006F0B7B /* MainView.xib */,
+				4108675013B32803006F0B7B /* FlipsideViewController.h */,
+				4108675113B32803006F0B7B /* FlipsideViewController.m */,
+				4108675313B32803006F0B7B /* FlipsideView.xib */,
+				4108673D13B32803006F0B7B /* Supporting Files */,
+			);
+			path = iTaxi;
+			sourceTree = "<group>";
+		};
+		4108673D13B32803006F0B7B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4108673E13B32803006F0B7B /* iTaxi-Info.plist */,
+				4108673F13B32803006F0B7B /* InfoPlist.strings */,
+				4108674213B32803006F0B7B /* iTaxi-Prefix.pch */,
+				4108674313B32803006F0B7B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4108673113B32803006F0B7B /* iTaxi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4108675713B32803006F0B7B /* Build configuration list for PBXNativeTarget "iTaxi" */;
+			buildPhases = (
+				4108672E13B32803006F0B7B /* Sources */,
+				4108672F13B32803006F0B7B /* Frameworks */,
+				4108673013B32803006F0B7B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iTaxi;
+			productName = iTaxi;
+			productReference = 4108673213B32803006F0B7B /* iTaxi.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4108672913B32803006F0B7B /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4108672C13B32803006F0B7B /* Build configuration list for PBXProject "iTaxi" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4108672713B32803006F0B7B;
+			productRefGroup = 4108673313B32803006F0B7B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4108673113B32803006F0B7B /* iTaxi */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4108673013B32803006F0B7B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4108674113B32803006F0B7B /* InfoPlist.strings in Resources */,
+				4108674A13B32803006F0B7B /* MainWindow.xib in Resources */,
+				4108674F13B32803006F0B7B /* MainView.xib in Resources */,
+				4108675413B32803006F0B7B /* FlipsideView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4108672E13B32803006F0B7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4108674413B32803006F0B7B /* main.m in Sources */,
+				4108674713B32803006F0B7B /* iTaxiAppDelegate.m in Sources */,
+				4108674D13B32803006F0B7B /* MainViewController.m in Sources */,
+				4108675213B32803006F0B7B /* FlipsideViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4108673F13B32803006F0B7B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4108674013B32803006F0B7B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4108674813B32803006F0B7B /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4108674913B32803006F0B7B /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4108675513B32803006F0B7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4108675613B32803006F0B7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		4108675813B32803006F0B7B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iTaxi/iTaxi-Prefix.pch";
+				INFOPLIST_FILE = "iTaxi/iTaxi-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4108675913B32803006F0B7B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iTaxi/iTaxi-Prefix.pch";
+				INFOPLIST_FILE = "iTaxi/iTaxi-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4108672C13B32803006F0B7B /* Build configuration list for PBXProject "iTaxi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4108675513B32803006F0B7B /* Debug */,
+				4108675613B32803006F0B7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4108675713B32803006F0B7B /* Build configuration list for PBXNativeTarget "iTaxi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4108675813B32803006F0B7B /* Debug */,
+				4108675913B32803006F0B7B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4108672913B32803006F0B7B /* Project object */;
+}
