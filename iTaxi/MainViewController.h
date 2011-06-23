@@ -32,6 +32,7 @@
 @property (nonatomic, retain) IBOutlet UISegmentedControl *locationTypeSwitch;
 @property (nonatomic, retain) NSString *searchString;
 
+- (IBAction)closeKeyboard:(id)sender;
 - (IBAction)showInfo:(id)sender;
 - (IBAction)searchButtonPressed:(id)sender;
 - (IBAction)mapTypeSwitched:(id)sender;
