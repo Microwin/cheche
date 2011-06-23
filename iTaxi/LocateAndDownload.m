@@ -29,7 +29,7 @@
 
         
         //开始定位
-        [self startStandardUpdates];
+//        [self startStandardUpdates];
     }
     return self;
 }
