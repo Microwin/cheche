@@ -12,13 +12,17 @@
 
 @implementation MainViewController
 
-@synthesize startPoint = _startPoint;
-@synthesize targetPoint = _targetPoint;
+@synthesize startPointTextField = _startPointTextField;
+@synthesize targetPointTextField = _targetPointTextField;
+@synthesize telTextField = _telTextField;
 @synthesize searchBar = _searchBar;
 @synthesize mapView = _mapView;
 @synthesize mapStyleSwitch = _mapStyleSwitch;
 @synthesize locationTypeSwitch = _locationTypeSwitch;
 @synthesize searchString = _searchString;
+@synthesize startCoordinate = _startCoordinate;
+@synthesize targetCoordinate = _targetCoordinate;
+@synthesize companyButton = _companyButton;
 
 static NSString *kGoogleGeoApi = @"http://maps.google.com/maps/api/geocode/json?address=";
 static NSString *kGoogleDecApi = @"http://maps.google.com/maps/api/geocode/json?latlng=";
@@ -146,18 +150,32 @@ static ASIHTTPRequest *kRequest = nil;
 
 - (void)dealloc
 {
-    [_startPoint release];
-    [_targetPoint release];
+    [_startPointTextField release];
+    [_targetPointTextField release];
+    [_telTextField release];
     [_searchBar release];
     [_mapView release];
     [_mapStyleSwitch release];
     [_locationTypeSwitch release];
+    [_companyButton release];
     [super dealloc];
 }
 
 
 
 #pragma mark - UISearchBar Delegate
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    CGPoint point = self.view.center;
+    point.y -= 210;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:.3f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    self.view.transform = CGAffineTransformIdentity;
+    self.view.center = point;
+    [UIView commitAnimations];
+}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     _searchString = _searchBar.text;
@@ -172,7 +190,18 @@ static ASIHTTPRequest *kRequest = nil;
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request setDelegate:self];
     [request startAsynchronous];
-
+    
+    CGPoint point = self.view.center;
+    point.y += 210;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:.3f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+    _searchBar.hidden = YES;
+    self.view.transform = CGAffineTransformIdentity;
+    self.view.center = point;
+    [UIView commitAnimations];
 }
 
 #pragma mark - ASIHttpRequest Delegate
@@ -210,8 +239,10 @@ static ASIHTTPRequest *kRequest = nil;
     
 }
 
+#pragma mark - IBActions
+
 - (IBAction)searchButtonPressed:(id)sender {
-    _searchBar.hidden = !_searchBar.hidden;
+    _searchBar.hidden = NO;
 }
 
 - (IBAction)mapTypeSwitched:(id)sender {
@@ -250,17 +281,39 @@ static ASIHTTPRequest *kRequest = nil;
     }
 }
 
+- (IBAction)closeKeyboard:(id)sender {
+    [_startPointTextField resignFirstResponder];
+    [_targetPointTextField resignFirstResponder];
+    [_telTextField resignFirstResponder];
+}
+
+- (IBAction)companyButtonPressed:(id)sender {
+    TaxiCompanyViewController *companyViewController = [[TaxiCompanyViewController alloc] initWithStyle:UITableViewStylePlain];
+    companyViewController.delegate = self;
+    [self presentModalViewController:companyViewController animated:YES];
+    [companyViewController release];
+}
+
 #pragma mark - Map Delegate
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
 //    kSelectedAnnotation = view.annotation;
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Place Selection", @"Place Selection") message:NSLocalizedString(@"Are you sure about the place?", @"Are You Sure About The Place?") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
 //    [alert show];
 //    [alert release];
+    NSString *str = nil;
+    if ([view.annotation isKindOfClass:[PlaceAnnotation class]]) {
+        str = ((PlaceAnnotation *)view.annotation).address;
+    }
     if (_locationTypeSwitch.selectedSegmentIndex == 0) {
-        _startPoint.text = ((PlaceAnnotation *)view.annotation).address;
+        if (str) {
+            _startPointTextField.text = str;
+        }
+        
     }
     else
-        _targetPoint.text = ((PlaceAnnotation *)view.annotation).address;
+        if (str) {
+            _targetPointTextField.text = str;
+        }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -293,22 +346,42 @@ static ASIHTTPRequest *kRequest = nil;
     return pinView;
 }
 
+
+
 #pragma LocateAndDownload Delegate
 
 - (void)locateSelfFinishedWithCood:(CLLocationCoordinate2D)coordinate {
-    _startPoint.text = @"现在的位置";
+    _startPointTextField.text = @"现在的位置";
 }
 
-- (IBAction)closeKeyboard:(id)sender {
-    _searchBar.hidden = YES;
-    [_startPoint resignFirstResponder];
-    [_targetPoint resignFirstResponder];
-    [_searchBar resignFirstResponder];
-}
+
 
 
 //提交信息
 - (IBAction)commit:(id)sender {
-    
+    NSString *startString = _startPointTextField.text;  //出发地
+    NSString *targetString = _targetPointTextField.text;    //目的地
+    NSString *userTel = _telTextField.text; //电话
+    //出发地和目的地坐标
+    NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
+    NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
+    NSNumber *targetLat = [NSNumber numberWithDouble:_targetCoordinate.latitude];
+    NSNumber *targetLon = [NSNumber numberWithDouble:_targetCoordinate.longitude];
+    if ([startString isEqualToString:@""] || [targetString isEqualToString:@""] || [userTel isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"不能生成订单" message:@"请完善必要的信息" delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else {
+        NSString *order = [NSString stringWithFormat:@"您的出发地为：%@\n您的目的地为：%@\n您选择的出租车公司为：%@\n您的联系电话为：%@", startString, targetString, nil, userTel];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"生成订单" message:order delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"提交！", nil];
+        [alert show];
+        [alert release];
+    }
+}
+
+#pragma mark - CompanySelect Delegate
+- (void)companySelected:(NSString *)name {
+    [_companyButton setTitle:name forState:UIControlStateNormal];
 }
 @end
