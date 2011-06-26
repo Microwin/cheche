@@ -46,6 +46,11 @@
 		410867B513B3374F006F0B7B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410867B413B3374F006F0B7B /* CFNetwork.framework */; };
 		410867B713B33BDE006F0B7B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410867B613B33BDE006F0B7B /* SystemConfiguration.framework */; };
 		410867C513B33D01006F0B7B /* LocateAndDownload.m in Sources */ = {isa = PBXBuildFile; fileRef = 410867C413B33D01006F0B7B /* LocateAndDownload.m */; };
+		A90AFD1613B7533C002FD85D /* TaxiCompany.plist in Resources */ = {isa = PBXBuildFile; fileRef = A90AFD1513B7533C002FD85D /* TaxiCompany.plist */; };
+		A90AFD1C13B75720002FD85D /* TaxiCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90AFD1B13B75720002FD85D /* TaxiCompanyViewController.m */; };
+		A90AFD1F13B75896002FD85D /* TaxiCompanyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A90AFD1E13B75896002FD85D /* TaxiCompanyTableCell.m */; };
+		A90AFD2113B758B3002FD85D /* TaxiCompanyTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90AFD2013B758B2002FD85D /* TaxiCompanyTableCell.xib */; };
+		A9B892C113B464880084DE04 /* GoogleLocationApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B892C013B464880084DE04 /* GoogleLocationApi.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +125,14 @@
 		410867B613B33BDE006F0B7B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		410867C313B33D01006F0B7B /* LocateAndDownload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocateAndDownload.h; sourceTree = "<group>"; };
 		410867C413B33D01006F0B7B /* LocateAndDownload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocateAndDownload.m; sourceTree = "<group>"; };
+		A90AFD1513B7533C002FD85D /* TaxiCompany.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TaxiCompany.plist; sourceTree = "<group>"; };
+		A90AFD1A13B75720002FD85D /* TaxiCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaxiCompanyViewController.h; sourceTree = "<group>"; };
+		A90AFD1B13B75720002FD85D /* TaxiCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaxiCompanyViewController.m; sourceTree = "<group>"; };
+		A90AFD1D13B75896002FD85D /* TaxiCompanyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaxiCompanyTableCell.h; sourceTree = "<group>"; };
+		A90AFD1E13B75896002FD85D /* TaxiCompanyTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaxiCompanyTableCell.m; sourceTree = "<group>"; };
+		A90AFD2013B758B2002FD85D /* TaxiCompanyTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaxiCompanyTableCell.xib; sourceTree = "<group>"; };
+		A9B892BF13B464880084DE04 /* GoogleLocationApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleLocationApi.h; sourceTree = "<group>"; };
+		A9B892C013B464880084DE04 /* GoogleLocationApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleLocationApi.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,21 +191,15 @@
 		4108673C13B32803006F0B7B /* iTaxi */ = {
 			isa = PBXGroup;
 			children = (
+				A90AFD1913B75697002FD85D /* Model */,
+				A90AFD1813B7568F002FD85D /* Controller */,
 				410867B813B33CB1006F0B7B /* Network */,
 				4108674513B32803006F0B7B /* iTaxiAppDelegate.h */,
 				4108674613B32803006F0B7B /* iTaxiAppDelegate.m */,
 				4108674813B32803006F0B7B /* MainWindow.xib */,
-				4108674B13B32803006F0B7B /* MainViewController.h */,
-				4108674C13B32803006F0B7B /* MainViewController.m */,
-				4108674E13B32803006F0B7B /* MainView.xib */,
-				4108676613B3342F006F0B7B /* PlaceAnnotation.h */,
-				4108676713B3342F006F0B7B /* PlaceAnnotation.m */,
-				4108675C13B32FC7006F0B7B /* lujiazui.png */,
-				4108675013B32803006F0B7B /* FlipsideViewController.h */,
-				4108675113B32803006F0B7B /* FlipsideViewController.m */,
-				4108675313B32803006F0B7B /* FlipsideView.xib */,
 				4108676B13B3361C006F0B7B /* Third Part */,
 				4108673D13B32803006F0B7B /* Supporting Files */,
+				A9B892AD13B4370E0084DE04 /* Recourse */,
 			);
 			path = iTaxi;
 			sourceTree = "<group>";
@@ -311,8 +318,46 @@
 			children = (
 				410867C313B33D01006F0B7B /* LocateAndDownload.h */,
 				410867C413B33D01006F0B7B /* LocateAndDownload.m */,
+				A9B892BF13B464880084DE04 /* GoogleLocationApi.h */,
+				A9B892C013B464880084DE04 /* GoogleLocationApi.m */,
 			);
 			name = Network;
+			sourceTree = "<group>";
+		};
+		A90AFD1813B7568F002FD85D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4108674B13B32803006F0B7B /* MainViewController.h */,
+				4108674C13B32803006F0B7B /* MainViewController.m */,
+				4108674E13B32803006F0B7B /* MainView.xib */,
+				4108675013B32803006F0B7B /* FlipsideViewController.h */,
+				4108675113B32803006F0B7B /* FlipsideViewController.m */,
+				4108675313B32803006F0B7B /* FlipsideView.xib */,
+				A90AFD1A13B75720002FD85D /* TaxiCompanyViewController.h */,
+				A90AFD1B13B75720002FD85D /* TaxiCompanyViewController.m */,
+				A90AFD1D13B75896002FD85D /* TaxiCompanyTableCell.h */,
+				A90AFD1E13B75896002FD85D /* TaxiCompanyTableCell.m */,
+				A90AFD2013B758B2002FD85D /* TaxiCompanyTableCell.xib */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		A90AFD1913B75697002FD85D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4108676613B3342F006F0B7B /* PlaceAnnotation.h */,
+				4108676713B3342F006F0B7B /* PlaceAnnotation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A9B892AD13B4370E0084DE04 /* Recourse */ = {
+			isa = PBXGroup;
+			children = (
+				4108675C13B32FC7006F0B7B /* lujiazui.png */,
+				A90AFD1513B7533C002FD85D /* TaxiCompany.plist */,
+			);
+			name = Recourse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,6 +412,8 @@
 				4108674F13B32803006F0B7B /* MainView.xib in Resources */,
 				4108675413B32803006F0B7B /* FlipsideView.xib in Resources */,
 				4108675D13B32FC7006F0B7B /* lujiazui.png in Resources */,
+				A90AFD1613B7533C002FD85D /* TaxiCompany.plist in Resources */,
+				A90AFD2113B758B3002FD85D /* TaxiCompanyTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +449,9 @@
 				410867AE13B336C9006F0B7B /* CJSONScanner.m in Sources */,
 				410867AF13B336C9006F0B7B /* CJSONSerializer.m in Sources */,
 				410867C513B33D01006F0B7B /* LocateAndDownload.m in Sources */,
+				A9B892C113B464880084DE04 /* GoogleLocationApi.m in Sources */,
+				A90AFD1C13B75720002FD85D /* TaxiCompanyViewController.m in Sources */,
+				A90AFD1F13B75896002FD85D /* TaxiCompanyTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
