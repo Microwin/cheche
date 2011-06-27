@@ -10,7 +10,11 @@
 
 
 @interface TaxiCompanyTableCell : UITableViewCell {
-    
+    UILabel *_titleLabel;   //出租公司名label
+    UILabel *_telephoneLabel;   //电话label
+    UIImageView *_icon;
 }
-
+@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
+@property (nonatomic, retain) IBOutlet UILabel *telephoneLabel;
+@property (nonatomic, retain) IBOutlet UIImageView *icon;
 @end

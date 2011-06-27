@@ -5,36 +5,36 @@
 	<key>List</key>
 	<array>
 		<dict>
+			<key>Icon</key>
+			<string></string>
 			<key>Name</key>
-			<string>大众</string>
+			<string>上海大众出租汽车有限公司</string>
 			<key>Telephone</key>
 			<string>1223344</string>
-			<key>Icon</key>
-			<string></string>
 		</dict>
 		<dict>
+			<key>Icon</key>
+			<string></string>
 			<key>Name</key>
-			<string>强生</string>
+			<string>上海强生出租汽车有限公司</string>
 			<key>Telephone</key>
 			<string>1231455</string>
-			<key>Icon</key>
-			<string></string>
 		</dict>
 		<dict>
+			<key>Icon</key>
+			<string></string>
 			<key>Name</key>
-			<string>巴士</string>
+			<string>上海巴士出租汽车有限公司</string>
 			<key>Telephone</key>
 			<string>6345234</string>
-			<key>Icon</key>
-			<string></string>
 		</dict>
 		<dict>
-			<key>Name</key>
-			<string>锦江</string>
-			<key>Telephone</key>
-			<string>62432536356</string>
 			<key>Icon</key>
 			<string></string>
+			<key>Name</key>
+			<string>上海新锦江出租汽车有限公司</string>
+			<key>Telephone</key>
+			<string>62432536356</string>
 		</dict>
 	</array>
 </dict>

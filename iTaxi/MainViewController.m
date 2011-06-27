@@ -10,6 +10,8 @@
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
 
+#define kDataFile @"Data.plist"
+
 @implementation MainViewController
 
 @synthesize startPointTextField = _startPointTextField;
@@ -38,6 +40,11 @@ static ASIHTTPRequest *kRequest = nil;
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"google.plist"];
     NSLog(@"%@", storeURL);
     return storeURL;
+}
+
+- (NSString *)histroyDataFilePath {
+    NSString *p = [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(), kDataFile];
+    return p;
 }
 
 - (void)mapLongPressed:(UILongPressGestureRecognizer *)touch {
@@ -242,7 +249,7 @@ static ASIHTTPRequest *kRequest = nil;
 #pragma mark - IBActions
 
 - (IBAction)searchButtonPressed:(id)sender {
-    _searchBar.hidden = NO;
+    _searchBar.hidden = !_searchBar.hidden;
 }
 
 - (IBAction)mapTypeSwitched:(id)sender {
@@ -362,6 +369,7 @@ static ASIHTTPRequest *kRequest = nil;
     NSString *startString = _startPointTextField.text;  //出发地
     NSString *targetString = _targetPointTextField.text;    //目的地
     NSString *userTel = _telTextField.text; //电话
+    NSString *taxiCompany = _companyButton.titleLabel.text;
     //出发地和目的地坐标
     NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
     NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
@@ -373,10 +381,53 @@ static ASIHTTPRequest *kRequest = nil;
         [alert release];
     }
     else {
-        NSString *order = [NSString stringWithFormat:@"您的出发地为：%@\n您的目的地为：%@\n您选择的出租车公司为：%@\n您的联系电话为：%@", startString, targetString, nil, userTel];
+        NSString *order = [NSString stringWithFormat:@"您的出发地为：%@\n您的目的地为：%@\n您选择的出租车公司为：%@\n您的联系电话为：%@", startString, targetString, taxiCompany, userTel];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"生成订单" message:order delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"提交！", nil];
         [alert show];
         [alert release];
+    }
+}
+
+//清空当前输入的订单数据
+- (void)clear {
+    _startPointTextField.text = nil;
+    _targetPointTextField.text = nil;
+    _telTextField.text = nil;
+    [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
+    _locationTypeSwitch.selectedSegmentIndex = 0;
+    _mapStyleSwitch.selectedSegmentIndex = 0;
+    _searchBar.text = nil;
+    _searchBar.hidden = YES;
+    [_mapView removeAnnotations:_mapView.annotations];
+}
+
+#pragma mark - Alert Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSString *startString = _startPointTextField.text;  //出发地
+        NSString *targetString = _targetPointTextField.text;    //目的地
+        NSString *taxiCompany = _companyButton.titleLabel.text;
+        
+        /*
+        NSString *userTel = _telTextField.text; //电话
+        //出发地和目的地坐标
+        NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
+        NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
+        NSNumber *targetLat = [NSNumber numberWithDouble:_targetCoordinate.latitude];
+        NSNumber *targetLon = [NSNumber numberWithDouble:_targetCoordinate.longitude];
+        */
+        NSString *path = [self histroyDataFilePath];
+        NSLog(@"HISTORY:%@", path);
+        NSMutableArray *dataArray = [[NSMutableArray arrayWithContentsOfFile:[self histroyDataFilePath]] retain];
+        if (!dataArray) {
+            dataArray = [[NSMutableArray alloc] initWithCapacity:1];
+        }
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:startString, @"Start", targetString, @"Target", taxiCompany, @"Company", nil];
+        [dataArray addObject:dic];
+        [dataArray writeToFile:[self histroyDataFilePath] atomically:YES];
+        [dataArray release];
+        //清空当前数据
+        [self clear];
     }
 }
 

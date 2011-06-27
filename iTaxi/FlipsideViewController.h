@@ -10,12 +10,13 @@
 
 @protocol FlipsideViewControllerDelegate;
 
-@interface FlipsideViewController : UIViewController {
-
+@interface FlipsideViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+    UITableView *_tableView;
+    NSArray *_dataArray;
 }
 
 @property (nonatomic, assign) id <FlipsideViewControllerDelegate> delegate;
-
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 - (IBAction)done:(id)sender;
 
 @end

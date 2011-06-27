@@ -1,18 +1,19 @@
 //
-//  TaxiCompanyTableCell.m
+//  HistroyTableCell.m
 //  iTaxi
 //
-//  Created by 卞中杰 on 11-6-26.
+//  Created by 卞中杰 on 11-6-27.
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "TaxiCompanyTableCell.h"
+#import "HistoryTableCell.h"
 
 
-@implementation TaxiCompanyTableCell
-@synthesize titleLabel = _titleLabel;
-@synthesize telephoneLabel = _telephoneLabel;
-@synthesize icon = _icon;
+@implementation HistoryTableCell
+@synthesize startPosition = _startPositon;
+@synthesize targetPosition = _targetPosition;
+@synthesize companyName = _companyName;
+@synthesize date = _date;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -32,14 +33,11 @@
 
 - (void)dealloc
 {
-    [_titleLabel release];
-    [_telephoneLabel release];
-    [_icon release];
+    [_startPositon release];
+    [_targetPosition release];
+    [_companyName release];
+    [_date release];
     [super dealloc];
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
 }
 
 @end

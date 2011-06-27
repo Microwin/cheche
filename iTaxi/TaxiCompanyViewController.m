@@ -47,6 +47,8 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.tableView.rowHeight = 80;
 }
 
 - (void)viewDidUnload
@@ -87,14 +89,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [_companyArray count];
 }
@@ -103,14 +103,19 @@
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TaxiCompanyTableCell *cell = (TaxiCompanyTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"TaxiCompanyTableCell" owner:self options:nil];
+        TaxiCompanyTableCell *temp = [array objectAtIndex:0];
+        if ([temp isKindOfClass:[TaxiCompanyTableCell class]]) {
+            cell = temp;
+        }
     }
     
     // Configure the cell...
-    cell.textLabel.text = [[_companyArray objectAtIndex:indexPath.row] valueForKey:@"Name"];
-    cell.detailTextLabel.text = [[_companyArray objectAtIndex:indexPath.row] valueForKey:@"Telephone"];
+    cell.titleLabel.text = [[_companyArray objectAtIndex:indexPath.row] valueForKey:@"Name"];
+    cell.telephoneLabel.text = [[_companyArray objectAtIndex:indexPath.row] valueForKey:@"Telephone"];
     
     return cell;
 }
