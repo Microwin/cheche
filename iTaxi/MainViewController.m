@@ -242,7 +242,7 @@ static ASIHTTPRequest *kRequest = nil;
 #pragma mark - IBActions
 
 - (IBAction)searchButtonPressed:(id)sender {
-    _searchBar.hidden = NO;
+    _searchBar.hidden = !_searchBar.hidden;
 }
 
 - (IBAction)mapTypeSwitched:(id)sender {
@@ -362,6 +362,7 @@ static ASIHTTPRequest *kRequest = nil;
     NSString *startString = _startPointTextField.text;  //出发地
     NSString *targetString = _targetPointTextField.text;    //目的地
     NSString *userTel = _telTextField.text; //电话
+    NSString *taxiCompany = _companyButton.titleLabel.text;
     //出发地和目的地坐标
     NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
     NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
@@ -373,10 +374,31 @@ static ASIHTTPRequest *kRequest = nil;
         [alert release];
     }
     else {
-        NSString *order = [NSString stringWithFormat:@"您的出发地为：%@\n您的目的地为：%@\n您选择的出租车公司为：%@\n您的联系电话为：%@", startString, targetString, nil, userTel];
+        NSString *order = [NSString stringWithFormat:@"您的出发地为：%@\n您的目的地为：%@\n您选择的出租车公司为：%@\n您的联系电话为：%@", startString, targetString, taxiCompany, userTel];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"生成订单" message:order delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"提交！", nil];
         [alert show];
         [alert release];
+    }
+}
+
+//清空当前输入的订单数据
+- (void)clear {
+    _startPointTextField.text = nil;
+    _targetPointTextField.text = nil;
+    _telTextField.text = nil;
+    [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
+    _locationTypeSwitch.selectedSegmentIndex = 0;
+    _mapStyleSwitch.selectedSegmentIndex = 0;
+    _searchBar.text = nil;
+    _searchBar.hidden = YES;
+    [_mapView removeAnnotations:_mapView.annotations];
+}
+
+#pragma mark - Alert Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        //清空当前数据
+        [self clear];
     }
 }
 

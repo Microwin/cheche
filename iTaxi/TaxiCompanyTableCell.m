@@ -10,6 +10,9 @@
 
 
 @implementation TaxiCompanyTableCell
+@synthesize titleLabel = _titleLabel;
+@synthesize telephoneLabel = _telephoneLabel;
+@synthesize icon = _icon;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -29,7 +32,14 @@
 
 - (void)dealloc
 {
+    [_titleLabel release];
+    [_telephoneLabel release];
+    [_icon release];
     [super dealloc];
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
 }
 
 @end
