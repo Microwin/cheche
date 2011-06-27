@@ -10,6 +10,8 @@
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
 
+#define kDataFile @"Data.plist"
+
 @implementation MainViewController
 
 @synthesize startPointTextField = _startPointTextField;
@@ -38,6 +40,11 @@ static ASIHTTPRequest *kRequest = nil;
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"google.plist"];
     NSLog(@"%@", storeURL);
     return storeURL;
+}
+
+- (NSString *)histroyDataFilePath {
+    NSString *p = [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(), kDataFile];
+    return p;
 }
 
 - (void)mapLongPressed:(UILongPressGestureRecognizer *)touch {
@@ -397,6 +404,28 @@ static ASIHTTPRequest *kRequest = nil;
 #pragma mark - Alert Delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
+        NSString *startString = _startPointTextField.text;  //出发地
+        NSString *targetString = _targetPointTextField.text;    //目的地
+        NSString *taxiCompany = _companyButton.titleLabel.text;
+        
+        /*
+        NSString *userTel = _telTextField.text; //电话
+        //出发地和目的地坐标
+        NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
+        NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
+        NSNumber *targetLat = [NSNumber numberWithDouble:_targetCoordinate.latitude];
+        NSNumber *targetLon = [NSNumber numberWithDouble:_targetCoordinate.longitude];
+        */
+        NSString *path = [self histroyDataFilePath];
+        NSLog(@"HISTORY:%@", path);
+        NSMutableArray *dataArray = [[NSMutableArray arrayWithContentsOfFile:[self histroyDataFilePath]] retain];
+        if (!dataArray) {
+            dataArray = [[NSMutableArray alloc] initWithCapacity:1];
+        }
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:startString, @"Start", targetString, @"Target", taxiCompany, @"Company", nil];
+        [dataArray addObject:dic];
+        [dataArray writeToFile:[self histroyDataFilePath] atomically:YES];
+        [dataArray release];
         //清空当前数据
         [self clear];
     }

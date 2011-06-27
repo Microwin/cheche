@@ -50,6 +50,8 @@
 		A90AFD1C13B75720002FD85D /* TaxiCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A90AFD1B13B75720002FD85D /* TaxiCompanyViewController.m */; };
 		A90AFD1F13B75896002FD85D /* TaxiCompanyTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A90AFD1E13B75896002FD85D /* TaxiCompanyTableCell.m */; };
 		A90AFD2113B758B3002FD85D /* TaxiCompanyTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90AFD2013B758B2002FD85D /* TaxiCompanyTableCell.xib */; };
+		A95A82DC13B850D200FC730D /* HistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95A82DB13B850D200FC730D /* HistoryTableCell.m */; };
+		A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95A82DE13B850E200FC730D /* HistoryTableCell.xib */; };
 		A9B892C113B464880084DE04 /* GoogleLocationApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B892C013B464880084DE04 /* GoogleLocationApi.m */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +133,9 @@
 		A90AFD1D13B75896002FD85D /* TaxiCompanyTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaxiCompanyTableCell.h; sourceTree = "<group>"; };
 		A90AFD1E13B75896002FD85D /* TaxiCompanyTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaxiCompanyTableCell.m; sourceTree = "<group>"; };
 		A90AFD2013B758B2002FD85D /* TaxiCompanyTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaxiCompanyTableCell.xib; sourceTree = "<group>"; };
+		A95A82DA13B850D200FC730D /* HistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableCell.h; sourceTree = "<group>"; };
+		A95A82DB13B850D200FC730D /* HistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableCell.m; sourceTree = "<group>"; };
+		A95A82DE13B850E200FC730D /* HistoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableCell.xib; sourceTree = "<group>"; };
 		A9B892BF13B464880084DE04 /* GoogleLocationApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleLocationApi.h; sourceTree = "<group>"; };
 		A9B892C013B464880084DE04 /* GoogleLocationApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleLocationApi.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -333,6 +338,9 @@
 				4108675013B32803006F0B7B /* FlipsideViewController.h */,
 				4108675113B32803006F0B7B /* FlipsideViewController.m */,
 				4108675313B32803006F0B7B /* FlipsideView.xib */,
+				A95A82DA13B850D200FC730D /* HistoryTableCell.h */,
+				A95A82DB13B850D200FC730D /* HistoryTableCell.m */,
+				A95A82DE13B850E200FC730D /* HistoryTableCell.xib */,
 				A90AFD1A13B75720002FD85D /* TaxiCompanyViewController.h */,
 				A90AFD1B13B75720002FD85D /* TaxiCompanyViewController.m */,
 				A90AFD1D13B75896002FD85D /* TaxiCompanyTableCell.h */,
@@ -414,6 +422,7 @@
 				4108675D13B32FC7006F0B7B /* lujiazui.png in Resources */,
 				A90AFD1613B7533C002FD85D /* TaxiCompany.plist in Resources */,
 				A90AFD2113B758B3002FD85D /* TaxiCompanyTableCell.xib in Resources */,
+				A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +461,7 @@
 				A9B892C113B464880084DE04 /* GoogleLocationApi.m in Sources */,
 				A90AFD1C13B75720002FD85D /* TaxiCompanyViewController.m in Sources */,
 				A90AFD1F13B75896002FD85D /* TaxiCompanyTableCell.m in Sources */,
+				A95A82DC13B850D200FC730D /* HistoryTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
