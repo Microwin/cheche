@@ -30,6 +30,7 @@ static NSString *kGoogleGeoApi = @"http://maps.google.com/maps/api/geocode/json?
 static NSString *kGoogleDecApi = @"http://maps.google.com/maps/api/geocode/json?latlng=";
 static ASIHTTPRequest *kRequest = nil;
 
+
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
@@ -90,7 +91,21 @@ static ASIHTTPRequest *kRequest = nil;
     
 }
 
-
+- (void)mapTapped:(UITapGestureRecognizer *)tap {
+    if ([_searchBar isFirstResponder]) {
+        CGPoint point = self.view.center;
+        point.y += 210;
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        [UIView setAnimationDuration:.3f];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+        self.view.transform = CGAffineTransformIdentity;
+        self.view.center = point;
+        [_searchBar resignFirstResponder];
+        [UIView commitAnimations];
+    }
+}
 
 - (NSString *)_encodeString:(NSString *)string
 {
@@ -110,6 +125,10 @@ static ASIHTTPRequest *kRequest = nil;
     UILongPressGestureRecognizer *tgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(mapLongPressed:)];
     [_mapView addGestureRecognizer:tgr];
     [tgr release];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
+    [_mapView addGestureRecognizer:tap];
+    [tap release];
     
     LocateAndDownload *lAndD = [[LocateAndDownload alloc] init];
     lAndD.delegate = self;
@@ -390,13 +409,13 @@ static ASIHTTPRequest *kRequest = nil;
 
 //清空当前输入的订单数据
 - (void)clear {
-    _startPointTextField.text = nil;
-    _targetPointTextField.text = nil;
-    _telTextField.text = nil;
+    _startPointTextField.text = @"";
+    _targetPointTextField.text = @"";
+    _telTextField.text = @"";
     [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
     _locationTypeSwitch.selectedSegmentIndex = 0;
     _mapStyleSwitch.selectedSegmentIndex = 0;
-    _searchBar.text = nil;
+    _searchBar.text = @"";
     _searchBar.hidden = YES;
     [_mapView removeAnnotations:_mapView.annotations];
 }
