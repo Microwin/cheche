@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "330847208.055343"
+         timestampString = "330964431.551811"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "369"
-         endingLineNumber = "369"
+         startingLineNumber = "388"
+         endingLineNumber = "388"
          landmarkName = "-commit:"
          landmarkType = "5">
       </FileBreakpoint>
