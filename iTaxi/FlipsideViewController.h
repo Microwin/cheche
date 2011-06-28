@@ -12,13 +12,15 @@
 
 @interface FlipsideViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
     UITableView *_tableView;
-    NSArray *_dataArray;
+    NSMutableArray *_dataArray; //历史记录数据
+    UIBarButtonItem *_editBtn;  //删除按键
 }
 
 @property (nonatomic, assign) id <FlipsideViewControllerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *editBtn;
 - (IBAction)done:(id)sender;
-
+- (IBAction)editMode:(id)sender;
 @end
 
 
