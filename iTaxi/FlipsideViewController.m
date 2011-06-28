@@ -9,11 +9,15 @@
 #import "FlipsideViewController.h"
 #import "HistoryTableCell.h"
 #define kDataFile @"Data.plist"
+@interface FlipsideViewController()
+
+@end
 
 @implementation FlipsideViewController
 
 @synthesize delegate=_delegate;
 @synthesize tableView = _tableView;
+@synthesize editBtn = _editBtn;
 
 - (NSString *)histroyDataFilePath {
     NSString *p = [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(), kDataFile];
@@ -24,6 +28,7 @@
 {
     [_dataArray release];
     [_tableView release];
+    [_editBtn release];
     [super dealloc];
 }
 
@@ -41,10 +46,10 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];  
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    _dataArray = [[NSArray arrayWithContentsOfFile:[self histroyDataFilePath]] retain];
-    self.tableView.rowHeight = 100;
 
+
+    _dataArray = [[NSMutableArray arrayWithContentsOfFile:[self histroyDataFilePath]] retain];
+    self.tableView.rowHeight = 100;
 }
 
 - (void)viewDidUnload
@@ -64,7 +69,20 @@
 
 - (IBAction)done:(id)sender
 {
+    [_dataArray writeToFile:[self histroyDataFilePath] atomically:YES];
     [self.delegate flipsideViewControllerDidFinish:self];
+}
+
+- (IBAction)editMode:(id)sender {
+    switch (_tableView.editing) {
+        case YES:
+            [_editBtn setTitle:@"删除"];
+            break;
+        case NO:
+            [_editBtn setTitle:@"完成"];
+            break;
+    }
+    [_tableView setEditing:!_tableView.editing animated:YES];
 }
 
 #pragma mark - TableView Delegate
@@ -82,6 +100,8 @@
             HistoryTableCell *temp = [array objectAtIndex:0];
             if ([temp isKindOfClass:[HistoryTableCell class]]) {
                 cell = temp;
+                cell.editingAccessoryType = UITableViewCellEditingStyleDelete;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
         }
         
@@ -94,5 +114,17 @@
     cell.companyName.text = [dic valueForKey:@"Company"];
     return cell;
 
+}
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [_dataArray removeObjectAtIndex:indexPath.row];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    NSLog(@"Delete");
 }
 @end

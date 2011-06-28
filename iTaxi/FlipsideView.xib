@@ -86,6 +86,12 @@
 									<reference key="IBUINavigationItem" ref="553200710"/>
 									<int key="IBUISystemItemIdentifier">0</int>
 								</object>
+								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="996097208">
+									<string key="IBUITitle">删除</string>
+									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+									<int key="IBUIStyle">1</int>
+									<reference key="IBUINavigationItem" ref="553200710"/>
+								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</object>
@@ -151,6 +157,22 @@
 					</object>
 					<int key="connectionID">51</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">editMode:</string>
+						<reference key="source" ref="996097208"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">editBtn</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="996097208"/>
+					</object>
+					<int key="connectionID">59</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -197,6 +219,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="854562692"/>
+							<reference ref="996097208"/>
 						</object>
 						<reference key="parent" ref="871675769"/>
 					</object>
@@ -209,6 +232,11 @@
 						<int key="objectID">47</int>
 						<reference key="object" ref="991557528"/>
 						<reference key="parent" ref="249263867"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">57</int>
+						<reference key="object" ref="996097208"/>
+						<reference key="parent" ref="553200710"/>
 					</object>
 				</object>
 			</object>
@@ -224,12 +252,14 @@
 					<string>43.IBPluginDependency</string>
 					<string>44.IBPluginDependency</string>
 					<string>47.IBPluginDependency</string>
+					<string>57.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>FlipsideViewController</string>
 					<string>UIResponder</string>
 					<string>{{213, 676}, {320, 480}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -249,7 +279,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">51</int>
+			<int key="maxID">59</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
