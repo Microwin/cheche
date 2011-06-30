@@ -48,6 +48,15 @@ static ASIHTTPRequest *kRequest = nil;
     return p;
 }
 
+//删除除当前位置蓝点的大头针
+- (void)removeAnnotations {
+    NSMutableArray *toRemove = [NSMutableArray arrayWithCapacity:10]; 
+    for (id annotation in _mapView.annotations) 
+        if (annotation != _mapView.userLocation) 
+            [toRemove addObject:annotation];
+    [_mapView removeAnnotations:toRemove]; 
+}
+
 - (void)mapLongPressed:(UILongPressGestureRecognizer *)touch {
 
     CGPoint touchPoint = [touch locationInView:_mapView];
@@ -81,7 +90,8 @@ static ASIHTTPRequest *kRequest = nil;
             anno.address = add;
             anno.subtitle = add;
             anno.title = @"用户选择的地点";
-            [_mapView removeAnnotations:_mapView.annotations];
+            [self removeAnnotations];
+//            [_mapView removeAnnotations:_mapView.annotations];
             [_mapView addAnnotation:anno];
         }
 
@@ -234,8 +244,9 @@ static ASIHTTPRequest *kRequest = nil;
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
 
-    if (!_searchBar.hidden) {
-        [self.mapView removeAnnotations:self.mapView.annotations];
+    if (/*!_searchBar.hidden*/1) {
+        [self removeAnnotations];
+//        [self.mapView removeAnnotations:self.mapView.annotations];
         // Use when fetching text data
         NSString *responseString = [request responseString];
         NSLog(@"%@", responseString);
@@ -346,6 +357,9 @@ static ASIHTTPRequest *kRequest = nil;
     // try to dequeue an existing pin view first
     static NSString* AnnotationIdentifier = @"AnnotationIdentifier";
     MKPinAnnotationView* pinView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+    if (annotation == _mapView.userLocation) {
+        return nil;
+    }
     if (!pinView)
     {
         // if an existing pin view was not available, create one
@@ -417,7 +431,8 @@ static ASIHTTPRequest *kRequest = nil;
     _mapStyleSwitch.selectedSegmentIndex = 0;
     _searchBar.text = @"";
     _searchBar.hidden = YES;
-    [_mapView removeAnnotations:_mapView.annotations];
+    [self removeAnnotations];
+//    [_mapView removeAnnotations:_mapView.annotations];
 }
 
 #pragma mark - Alert Delegate
