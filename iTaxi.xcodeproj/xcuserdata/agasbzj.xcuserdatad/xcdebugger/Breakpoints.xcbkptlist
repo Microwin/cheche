@@ -9,12 +9,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "331129466.683231"
+         timestampString = "344661497.933428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "402"
-         endingLineNumber = "402"
-         landmarkName = "-commit:"
+         startingLineNumber = "408"
+         endingLineNumber = "408"
+         landmarkName = "-mapView:viewForAnnotation:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -23,11 +23,25 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "331129466.683231"
+         timestampString = "344661497.933428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "269"
-         endingLineNumber = "269"
+         startingLineNumber = "277"
+         endingLineNumber = "277"
+         landmarkName = "-smsSharingButtonPressed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "iTaxi/MainViewController.m"
+         timestampString = "344661497.933428"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "266"
+         endingLineNumber = "266"
          landmarkName = "-requestFinished:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -37,11 +51,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "331129466.683231"
+         timestampString = "344661497.933428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "258"
-         endingLineNumber = "258"
+         startingLineNumber = "238"
+         endingLineNumber = "238"
          landmarkName = "-requestFinished:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -51,25 +65,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "331129466.683231"
+         timestampString = "344661497.933428"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "230"
-         endingLineNumber = "230"
-         landmarkName = "-searchBarSearchButtonClicked:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "iTaxi/MainViewController.m"
-         timestampString = "331129466.683231"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "248"
-         endingLineNumber = "248"
+         startingLineNumber = "256"
+         endingLineNumber = "256"
          landmarkName = "-requestFinished:"
          landmarkType = "5">
       </FileBreakpoint>

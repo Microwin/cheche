@@ -16,15 +16,14 @@
 
 @synthesize startPointTextField = _startPointTextField;
 @synthesize targetPointTextField = _targetPointTextField;
-@synthesize telTextField = _telTextField;
-@synthesize searchBar = _searchBar;
+
 @synthesize mapView = _mapView;
+@synthesize searchBar = _searchBar;
 @synthesize mapStyleSwitch = _mapStyleSwitch;
-@synthesize locationTypeSwitch = _locationTypeSwitch;
 @synthesize searchString = _searchString;
+
 @synthesize startCoordinate = _startCoordinate;
 @synthesize targetCoordinate = _targetCoordinate;
-@synthesize companyButton = _companyButton;
 
 static NSString *kGoogleGeoApi = @"http://maps.google.com/maps/api/geocode/json?address=";
 static NSString *kGoogleDecApi = @"http://maps.google.com/maps/api/geocode/json?latlng=";
@@ -94,11 +93,7 @@ static ASIHTTPRequest *kRequest = nil;
 //            [_mapView removeAnnotations:_mapView.annotations];
             [_mapView addAnnotation:anno];
         }
-
     }
-    
-
-    
 }
 
 - (void)mapTapped:(UITapGestureRecognizer *)tap {
@@ -114,7 +109,10 @@ static ASIHTTPRequest *kRequest = nil;
         self.view.center = point;
         [_searchBar resignFirstResponder];
         [UIView commitAnimations];
+        _searchBar.hidden = YES; //触摸地图就要将searchbar本身也消失掉
+
     }
+    
 }
 
 - (NSString *)_encodeString:(NSString *)string
@@ -140,9 +138,16 @@ static ASIHTTPRequest *kRequest = nil;
     [_mapView addGestureRecognizer:tap];
     [tap release];
     
-    LocateAndDownload *lAndD = [[LocateAndDownload alloc] init];
-    lAndD.delegate = self;
-    [lAndD startStandardUpdates];
+    _locationManager = [[LocateAndDownload alloc] init];
+    _locationManager.delegate = self;
+    [_locationManager startStandardUpdates];
+    
+    
+    //MKMapView跟踪用户位置
+    MKCoordinateRegion ragionCoor = MKCoordinateRegionMake([[[_mapView userLocation] location] coordinate], MKCoordinateSpanMake(1, 1));
+    
+    [_mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
+    [_mapView setRegion:ragionCoor animated:YES];
 }
 
 
@@ -151,16 +156,6 @@ static ASIHTTPRequest *kRequest = nil;
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction)showInfo:(id)sender
-{    
-    FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
-    controller.delegate = self;
-    
-    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:controller animated:YES];
-    
-    [controller release];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -186,14 +181,12 @@ static ASIHTTPRequest *kRequest = nil;
 
 - (void)dealloc
 {
+    [_locationManager release];
     [_startPointTextField release];
     [_targetPointTextField release];
-    [_telTextField release];
     [_searchBar release];
     [_mapView release];
     [_mapStyleSwitch release];
-    [_locationTypeSwitch release];
-    [_companyButton release];
     [super dealloc];
 }
 
@@ -238,6 +231,7 @@ static ASIHTTPRequest *kRequest = nil;
     self.view.transform = CGAffineTransformIdentity;
     self.view.center = point;
     [UIView commitAnimations];
+    //这里需要考虑如果通过搜索地点反馈解析回来有多个选项，则以搜索栏下出现tableview方式罗列出来让用户选择。
 }
 
 #pragma mark - ASIHttpRequest Delegate
@@ -272,16 +266,93 @@ static ASIHTTPRequest *kRequest = nil;
     
     kRequest = nil;
     
-    
-    
 }
 
-#pragma mark - IBActions
 
+#pragma mark - IBActions for multiple style sharing
+//sms sharing
+- (IBAction)smsSharingButtonPressed:(id)sender
+{
+    
+    NSString *message = [NSString stringWithFormat:@"the location is:%@", "12345"];
+    MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
+    picker.messageComposeDelegate= self;
+    picker.navigationBar.tintColor= [UIColor blackColor];
+    picker.body = message; // 默认信息内容
+    // 默认收件人(可多个)
+    //picker.recipients = [NSArray arrayWithObject:@"12345678901", nil];
+    [self presentModalViewController:picker animated:YES];
+    [picker release];
+}
+    
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+        
+        [self dismissModalViewControllerAnimated:YES]; 
+}
+
+//email sharing
+- (IBAction)emailSharingButtonPressed:(id)sender
+{
+        
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.navigationBar.barStyle = UIBarStyleBlackOpaque;
+    picker.mailComposeDelegate = self;
+    [picker setSubject:[NSString stringWithFormat:@"分享位置"]];
+        
+    [picker setMessageBody:@"I share you my current location from iAlmondz." isHTML:NO];
+        
+    //[picker addAttachmentData:UIImagePNGRepresentation([self image]) mimeType:@"image/png" fileName:@"sharePictures.png"];
+    picker.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:picker animated:YES];
+    [picker release];
+        
+}
+    
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
+{	
+    
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+//societynetwork sharing, like weibo etc.
+- (IBAction)societySharingButtonPressed:(id)sender
+{
+
+}
+
+#pragma mark - IBActions for bottom button
+
+//刷新按钮动作：用户移动过程中，手动刷新当前位置定位
+- (IBAction)refreshButtonPressed:(id)sender{
+
+    [_locationManager startStandardUpdates];
+
+}
+
+//搜索按钮动作：在搜索栏显示和隐藏间切换
 - (IBAction)searchButtonPressed:(id)sender {
     _searchBar.hidden = !_searchBar.hidden;
 }
 
+//位置历史信息显示
+- (IBAction)historyInfoButtonPressed:(id)sender
+{    
+    FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
+    controller.delegate = self;
+    
+    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:controller animated:YES];
+    
+    [controller release];
+}
+
+//程序设置按钮动作
+- (IBAction)settingButtonPressed:(id)sender
+{
+
+}
+
+//地图模式切换按钮
 - (IBAction)mapTypeSwitched:(id)sender {
     switch (((UISegmentedControl *)sender).selectedSegmentIndex) {
         case 0:
@@ -300,57 +371,23 @@ static ASIHTTPRequest *kRequest = nil;
     }
 }
 
-- (IBAction)locationTypeSwitched:(id)sender {
-    switch (((UISegmentedControl *)sender).selectedSegmentIndex) {
-            //出发地
-        case 0:
-        {
-            break;
-        } 
-            //目的地
-        case 1:
-        {
-            break;
-            
-        }
-        default:
-            break;
-    }
-}
 
 - (IBAction)closeKeyboard:(id)sender {
     [_startPointTextField resignFirstResponder];
     [_targetPointTextField resignFirstResponder];
-    [_telTextField resignFirstResponder];
 }
 
-- (IBAction)companyButtonPressed:(id)sender {
-    TaxiCompanyViewController *companyViewController = [[TaxiCompanyViewController alloc] initWithStyle:UITableViewStylePlain];
-    companyViewController.delegate = self;
-    [self presentModalViewController:companyViewController animated:YES];
-    [companyViewController release];
-}
+
 
 #pragma mark - Map Delegate
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-//    kSelectedAnnotation = view.annotation;
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Place Selection", @"Place Selection") message:NSLocalizedString(@"Are you sure about the place?", @"Are You Sure About The Place?") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
-//    [alert show];
-//    [alert release];
+
     NSString *str = nil;
     if ([view.annotation isKindOfClass:[PlaceAnnotation class]]) {
         str = ((PlaceAnnotation *)view.annotation).address;
     }
-    if (_locationTypeSwitch.selectedSegmentIndex == 0) {
-        if (str) {
-            _startPointTextField.text = str;
-        }
-        
-    }
-    else
-        if (str) {
-            _targetPointTextField.text = str;
-        }
+    
+    _startPointTextField.text = str;
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -369,9 +406,9 @@ static ASIHTTPRequest *kRequest = nil;
         pinView.canShowCallout = YES;
         pinView.animatesDrop = YES;
         
-        if (_locationTypeSwitch.selectedSegmentIndex == 0) {
-            pinView.pinColor = MKPinAnnotationColorPurple;
-        }
+//        if (_locationTypeSwitch.selectedSegmentIndex == 0) {
+//            pinView.pinColor = MKPinAnnotationColorPurple;
+//        }
         // add a detail disclosure button to the callout which will open a new view controller page
         //
         // note: you can assign a specific call out accessory view, or as MKMapViewDelegate you can implement:
@@ -386,7 +423,9 @@ static ASIHTTPRequest *kRequest = nil;
     return pinView;
 }
 
-
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    NSLog(@"%@", userLocation.location);
+}
 
 #pragma LocateAndDownload Delegate
 
@@ -401,20 +440,18 @@ static ASIHTTPRequest *kRequest = nil;
 - (IBAction)commit:(id)sender {
     NSString *startString = _startPointTextField.text;  //出发地
     NSString *targetString = _targetPointTextField.text;    //目的地
-    NSString *userTel = _telTextField.text; //电话
-    NSString *taxiCompany = _companyButton.titleLabel.text;
     //出发地和目的地坐标
     NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
     NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
     NSNumber *targetLat = [NSNumber numberWithDouble:_targetCoordinate.latitude];
     NSNumber *targetLon = [NSNumber numberWithDouble:_targetCoordinate.longitude];
-    if ([startString isEqualToString:@""] || [targetString isEqualToString:@""] || [userTel isEqualToString:@""]) {
+    if ([startString isEqualToString:@""] || [targetString isEqualToString:@""] ) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"不能生成订单" message:@"请完善必要的信息" delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
     }
     else {
-        NSString *order = [NSString stringWithFormat:@"您的出发地为：%@\n您的目的地为：%@\n您选择的出租车公司为：%@\n您的联系电话为：%@", startString, targetString, taxiCompany, userTel];
+        NSString *order = [NSString stringWithFormat:@"您的出发地为：%@\n您的目的地为：%@", startString, targetString];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"生成订单" message:order delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"提交！", nil];
         [alert show];
         [alert release];
@@ -422,51 +459,48 @@ static ASIHTTPRequest *kRequest = nil;
 }
 
 //清空当前输入的订单数据
-- (void)clear {
-    _startPointTextField.text = @"";
-    _targetPointTextField.text = @"";
-    _telTextField.text = @"";
-    [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
-    _locationTypeSwitch.selectedSegmentIndex = 0;
-    _mapStyleSwitch.selectedSegmentIndex = 0;
-    _searchBar.text = @"";
-    _searchBar.hidden = YES;
-    [self removeAnnotations];
-//    [_mapView removeAnnotations:_mapView.annotations];
-}
+//- (void)clear {
+//    _startPointTextField.text = @"";
+//    _targetPointTextField.text = @"";
+//    _telTextField.text = @"";
+//    [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
+//    _locationTypeSwitch.selectedSegmentIndex = 0;
+//    _mapStyleSwitch.selectedSegmentIndex = 0;
+//    _searchBar.text = @"";
+//    _searchBar.hidden = YES;
+//    [self removeAnnotations];
+////    [_mapView removeAnnotations:_mapView.annotations];
+//}
 
-#pragma mark - Alert Delegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        NSString *startString = _startPointTextField.text;  //出发地
-        NSString *targetString = _targetPointTextField.text;    //目的地
-        NSString *taxiCompany = _companyButton.titleLabel.text;
-        
-        /*
-        NSString *userTel = _telTextField.text; //电话
-        //出发地和目的地坐标
-        NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
-        NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
-        NSNumber *targetLat = [NSNumber numberWithDouble:_targetCoordinate.latitude];
-        NSNumber *targetLon = [NSNumber numberWithDouble:_targetCoordinate.longitude];
-        */
-        NSString *path = [self histroyDataFilePath];
-        NSLog(@"HISTORY:%@", path);
-        NSMutableArray *dataArray = [[NSMutableArray arrayWithContentsOfFile:[self histroyDataFilePath]] retain];
-        if (!dataArray) {
-            dataArray = [[NSMutableArray alloc] initWithCapacity:1];
-        }
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:startString, @"Start", targetString, @"Target", taxiCompany, @"Company", nil];
-        [dataArray addObject:dic];
-        [dataArray writeToFile:[self histroyDataFilePath] atomically:YES];
-        [dataArray release];
-        //清空当前数据
-        [self clear];
-    }
-}
+//#pragma mark - Alert Delegate
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    if (buttonIndex == 1) {
+//        NSString *startString = _startPointTextField.text;  //出发地
+//        NSString *targetString = _targetPointTextField.text;    //目的地
+//        NSString *taxiCompany = _companyButton.titleLabel.text;
+//        
+//        /*
+//        NSString *userTel = _telTextField.text; //电话
+//        //出发地和目的地坐标
+//        NSNumber *startLat = [NSNumber numberWithDouble:_startCoordinate.latitude];
+//        NSNumber *startLon = [NSNumber numberWithDouble:_startCoordinate.longitude];
+//        NSNumber *targetLat = [NSNumber numberWithDouble:_targetCoordinate.latitude];
+//        NSNumber *targetLon = [NSNumber numberWithDouble:_targetCoordinate.longitude];
+//        */
+//        NSString *path = [self histroyDataFilePath];
+//        NSLog(@"HISTORY:%@", path);
+//        NSMutableArray *dataArray = [[NSMutableArray arrayWithContentsOfFile:[self histroyDataFilePath]] retain];
+//        if (!dataArray) {
+//            dataArray = [[NSMutableArray alloc] initWithCapacity:1];
+//        }
+//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:startString, @"Start", targetString, @"Target", taxiCompany, @"Company", nil];
+//        [dataArray addObject:dic];
+//        [dataArray writeToFile:[self histroyDataFilePath] atomically:YES];
+//        [dataArray release];
+//        //清空当前数据
+//        [self clear];
+//    }
+//}
 
-#pragma mark - CompanySelect Delegate
-- (void)companySelected:(NSString *)name {
-    [_companyButton setTitle:name forState:UIControlStateNormal];
-}
+
 @end

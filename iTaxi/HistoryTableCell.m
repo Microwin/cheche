@@ -10,9 +10,9 @@
 
 
 @implementation HistoryTableCell
-@synthesize startPosition = _startPositon;
-@synthesize targetPosition = _targetPosition;
-@synthesize companyName = _companyName;
+@synthesize locationLati = _locationLati;
+@synthesize locationLong = _locationLong;
+@synthesize address = _address;
 @synthesize date = _date;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -33,9 +33,9 @@
 
 - (void)dealloc
 {
-    [_startPositon release];
-    [_targetPosition release];
-    [_companyName release];
+    [_locationLati release];
+    [_locationLong release];
+    [_address release];
     [_date release];
     [super dealloc];
 }

@@ -87,16 +87,7 @@
     NSLog(@"latitude %+.6f, longitude %+.6f\n",
           newLocation.coordinate.latitude,
           newLocation.coordinate.longitude);
-    // If it's a relatively recent event, turn off updates to save power
-    //    NSDate* eventDate = newLocation.timestamp;
-    //    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    //    if (abs(howRecent) < 15.0)
-    //    {
-    //        NSLog(@"latitude %+.6f, longitude %+.6f\n",
-    //              newLocation.coordinate.latitude,
-    //              newLocation.coordinate.longitude);
-    //    }
-    // else skip the event and process the next one.
+
     [locationManager stopUpdatingLocation];
     
     NSMutableDictionary *ddd = [NSMutableDictionary dictionaryWithCapacity:2];
@@ -106,9 +97,8 @@
     [ddd setValue:log forKey:@"longitude"];
     [ddd writeToURL:[self locationDataFilePath] atomically:YES];
     
-    
-    
     [delegate locateSelfFinishedWithCood:newLocation.coordinate];
+    
 //    //新建线程
 //    interConnectOperationQueue = [NSOperationQueue new];
 //    

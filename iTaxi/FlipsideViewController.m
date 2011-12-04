@@ -109,9 +109,9 @@
 //        cell.titleLabel.text = [[_companyArray objectAtIndex:indexPath.row] valueForKey:@"Name"];
 //        cell.telephoneLabel.text = [[_companyArray objectAtIndex:indexPath.row] valueForKey:@"Telephone"];
     NSDictionary *dic = [_dataArray objectAtIndex:indexPath.row];
-    cell.startPosition.text = [dic valueForKey:@"Start"];
-    cell.targetPosition.text = [dic valueForKey:@"Target"];
-    cell.companyName.text = [dic valueForKey:@"Company"];
+    cell.locationLati.text = [dic valueForKey:@"Start"];
+    cell.locationLong.text = [dic valueForKey:@"Target"];
+    cell.address.text = [dic valueForKey:@"Company"];
     return cell;
 
 }

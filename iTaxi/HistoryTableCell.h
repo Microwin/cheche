@@ -10,13 +10,13 @@
 
 
 @interface HistoryTableCell : UITableViewCell {
-    UILabel *_startPositon;
-    UILabel *_targetPosition;
-    UILabel *_companyName;
+    UILabel *_locationLati;
+    UILabel *_locationLong;
+    UILabel *_address;
     UILabel *_date;
 }
-@property (nonatomic, retain) IBOutlet UILabel *startPosition;
-@property (nonatomic, retain) IBOutlet UILabel *targetPosition;
-@property (nonatomic, retain) IBOutlet UILabel *companyName;
+@property (nonatomic, retain) IBOutlet UILabel *locationLati;
+@property (nonatomic, retain) IBOutlet UILabel *locationLong;
+@property (nonatomic, retain) IBOutlet UILabel *address;
 @property (nonatomic, retain) IBOutlet UILabel *date;
 @end
