@@ -121,33 +121,6 @@ static ASIHTTPRequest *kRequest = nil;
     anno.title = NSLocalizedString(@"User Selected Place", @"User Selected Place");
     anno.subtitle = @"";
     anno.coordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
-//
-//    
-//    NSMutableString *url = [NSMutableString stringWithString:kGoogleDecApi];
-//    
-//    [url appendString:[NSString stringWithFormat:@"%@,%@&language=zh-CN&sensor=true", [NSNumber numberWithDouble:anno.coordinate.latitude], [NSNumber numberWithDouble:anno.coordinate.longitude]]];
-//    
-//    NSLog(@"%@", url);
-//    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-//    [request startSynchronous];
-//    NSError *error = [request error];
-//    if (!error) {
-//        NSString *responseString = [request responseString];
-//        NSLog(@"%@", responseString);
-//        NSData *responseData = [request responseData];
-//        NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:responseData error:NULL];
-//        [dict writeToURL:[self itemDataFilePath] atomically:YES];
-//        
-//        if ([[dict valueForKey:@"results"] count]) {
-//            NSString *add = [[[dict valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
-//            anno.address = add;
-//            anno.subtitle = add;
-//            anno.title = @"用户选择的地点";
-//            [self removeAnnotations];
-//            [_mapView addAnnotation:anno];
-//        }
-//
-//    }
     NSDictionary *resultDic = [self getAddressFromCoordinate:anno.coordinate];
     if (resultDic) {
         if ([[resultDic valueForKey:@"results"] count]) {
@@ -175,7 +148,7 @@ bool mapTapped = NO;
         self.view.center = point;
         [_searchBar resignFirstResponder];
         _mapStyleSwitch.hidden = !_mapStyleSwitch.hidden;
-        [self removeTapGesture];
+        [self removeTapGestureFromMapView:_mapView];
         [UIView commitAnimations];
     }
 }
