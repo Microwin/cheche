@@ -52,11 +52,14 @@
 		A90AFD2113B758B3002FD85D /* TaxiCompanyTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A90AFD2013B758B2002FD85D /* TaxiCompanyTableCell.xib */; };
 		A95A82DC13B850D200FC730D /* HistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95A82DB13B850D200FC730D /* HistoryTableCell.m */; };
 		A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95A82DE13B850E200FC730D /* HistoryTableCell.xib */; };
+		A9B6746F14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9B6746E14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg */; };
+		A9B6747114EFE64F007A06F7 /* 3934006_213623051587_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9B6747014EFE64F007A06F7 /* 3934006_213623051587_2.jpg */; };
+		A9B6747314EFE6A8007A06F7 /* 34c3d4e517a60904d662ec50431609da.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9B6747214EFE6A8007A06F7 /* 34c3d4e517a60904d662ec50431609da.jpg */; };
 		A9B892C113B464880084DE04 /* GoogleLocationApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B892C013B464880084DE04 /* GoogleLocationApi.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4108673213B32803006F0B7B /* iTaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4108673213B32803006F0B7B /* itaxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = itaxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4108673613B32803006F0B7B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4108673813B32803006F0B7B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4108673A13B32803006F0B7B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,6 +139,9 @@
 		A95A82DA13B850D200FC730D /* HistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableCell.h; sourceTree = "<group>"; };
 		A95A82DB13B850D200FC730D /* HistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableCell.m; sourceTree = "<group>"; };
 		A95A82DE13B850E200FC730D /* HistoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableCell.xib; sourceTree = "<group>"; };
+		A9B6746E14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2457331_145129860354_2.jpg; sourceTree = "<group>"; };
+		A9B6747014EFE64F007A06F7 /* 3934006_213623051587_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3934006_213623051587_2.jpg; sourceTree = "<group>"; };
+		A9B6747214EFE6A8007A06F7 /* 34c3d4e517a60904d662ec50431609da.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 34c3d4e517a60904d662ec50431609da.jpg; sourceTree = "<group>"; };
 		A9B892BF13B464880084DE04 /* GoogleLocationApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleLocationApi.h; sourceTree = "<group>"; };
 		A9B892C013B464880084DE04 /* GoogleLocationApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleLocationApi.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,7 +178,7 @@
 		4108673313B32803006F0B7B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4108673213B32803006F0B7B /* iTaxi.app */,
+				4108673213B32803006F0B7B /* itaxi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,10 +365,21 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		A9B6746C14EFE4B9007A06F7 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				A9B6747214EFE6A8007A06F7 /* 34c3d4e517a60904d662ec50431609da.jpg */,
+				A9B6747014EFE64F007A06F7 /* 3934006_213623051587_2.jpg */,
+				A9B6746E14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg */,
+				4108675C13B32FC7006F0B7B /* lujiazui.png */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
 		A9B892AD13B4370E0084DE04 /* Recourse */ = {
 			isa = PBXGroup;
 			children = (
-				4108675C13B32FC7006F0B7B /* lujiazui.png */,
+				A9B6746C14EFE4B9007A06F7 /* Image */,
 				A90AFD1513B7533C002FD85D /* TaxiCompany.plist */,
 			);
 			name = Recourse;
@@ -385,7 +402,7 @@
 			);
 			name = iTaxi;
 			productName = iTaxi;
-			productReference = 4108673213B32803006F0B7B /* iTaxi.app */;
+			productReference = 4108673213B32803006F0B7B /* itaxi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -423,6 +440,9 @@
 				A90AFD1613B7533C002FD85D /* TaxiCompany.plist in Resources */,
 				A90AFD2113B758B3002FD85D /* TaxiCompanyTableCell.xib in Resources */,
 				A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */,
+				A9B6746F14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg in Resources */,
+				A9B6747114EFE64F007A06F7 /* 3934006_213623051587_2.jpg in Resources */,
+				A9B6747314EFE6A8007A06F7 /* 34c3d4e517a60904d662ec50431609da.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +511,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -500,6 +521,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PROVISIONING_PROFILE = "720BE89A-821A-4418-9EE5-4E8CA2077779";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "720BE89A-821A-4418-9EE5-4E8CA2077779";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -508,13 +531,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "720BE89A-821A-4418-9EE5-4E8CA2077779";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "720BE89A-821A-4418-9EE5-4E8CA2077779";
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -528,7 +554,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTaxi/iTaxi-Prefix.pch";
 				INFOPLIST_FILE = "iTaxi/iTaxi-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = itaxi;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -541,7 +567,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTaxi/iTaxi-Prefix.pch";
 				INFOPLIST_FILE = "iTaxi/iTaxi-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = itaxi;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

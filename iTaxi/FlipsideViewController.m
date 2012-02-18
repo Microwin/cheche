@@ -125,6 +125,5 @@
 {
     [_dataArray removeObjectAtIndex:indexPath.row];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    NSLog(@"Delete");
 }
 @end

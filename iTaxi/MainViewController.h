@@ -12,7 +12,7 @@
 #import "LocateAndDownload.h"
 #import "TaxiCompanyViewController.h"
 
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, MKMapViewDelegate, UISearchBarDelegate, LocateSelfDelegate, CompanySelectDelegate, UIAlertViewDelegate> {
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, MKMapViewDelegate, UISearchBarDelegate, LocateSelfDelegate, CompanySelectDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 @private
     UITextField *_startPointTextField;  //出发地textfield
     UITextField *_targetPointTextField; //目的地textfield
@@ -30,6 +30,9 @@
     NSString *_userTel; //用户电话
     
     UIButton *_companyButton;   //出租车公司选择按钮
+    
+    UITapGestureRecognizer *_tapGesture;
+    NSString *_locationStr; //选中的地址字符串
 }
 
 @property (nonatomic, retain) IBOutlet UITextField *startPointTextField;
@@ -44,8 +47,6 @@
 
 @property (nonatomic, assign) CLLocationCoordinate2D startCoordinate;
 @property (nonatomic, assign) CLLocationCoordinate2D targetCoordinate;
-
-
 - (IBAction)closeKeyboard:(id)sender;
 - (IBAction)showInfo:(id)sender;
 - (IBAction)searchButtonPressed:(id)sender;

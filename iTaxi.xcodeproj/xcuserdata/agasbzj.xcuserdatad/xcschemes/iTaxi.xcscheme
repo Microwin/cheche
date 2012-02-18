@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   version = "1.3">
+   version = "1.8">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -14,7 +14,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4108673113B32803006F0B7B"
-               BuildableName = "iTaxi.app"
+               BuildableName = "itaxi.app"
                BlueprintName = "iTaxi"
                ReferencedContainer = "container:iTaxi.xcodeproj">
             </BuildableReference>
@@ -28,6 +28,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4108673113B32803006F0B7B"
+            BuildableName = "itaxi.app"
+            BlueprintName = "iTaxi"
+            ReferencedContainer = "container:iTaxi.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
@@ -36,12 +45,14 @@
       displayScale = "1.00"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug">
+      buildConfiguration = "Debug"
+      debugDocumentVersioning = "YES"
+      allowLocationSimulation = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4108673113B32803006F0B7B"
-            BuildableName = "iTaxi.app"
+            BuildableName = "itaxi.app"
             BlueprintName = "iTaxi"
             ReferencedContainer = "container:iTaxi.xcodeproj">
          </BuildableReference>
@@ -55,12 +66,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release">
+      buildConfiguration = "Release"
+      debugDocumentVersioning = "YES">
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4108673113B32803006F0B7B"
-            BuildableName = "iTaxi.app"
+            BuildableName = "itaxi.app"
             BlueprintName = "iTaxi"
             ReferencedContainer = "container:iTaxi.xcodeproj">
          </BuildableReference>

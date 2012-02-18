@@ -11,6 +11,42 @@
 #import "CJSONDeserializer.h"
 
 #define kDataFile @"Data.plist"
+#define SHEET_START_BTN_INDEX     0
+#define SHEET_TARGET_BTN_INDEX    1
+
+@interface MainViewController(private)
+- (void)addTapGestureFromMapView:(MKMapView *)mapView;
+- (void)removeTapGestureFromMapView:(MKMapView *)mapView;
+- (void)mapView:(MKMapView *)mapView moveToCoordinate:(CLLocationCoordinate2D)coordinate;
+@end
+
+@implementation MainViewController(private)
+
+- (void)addTapGestureFromMapView:(MKMapView *)mapView {
+    if (!_tapGesture && mapView) {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
+        [mapView addGestureRecognizer:_tapGesture];
+        [_tapGesture release];
+    }
+}
+
+- (void)removeTapGestureFromMapView:(MKMapView *)mapView {
+    if (_tapGesture && mapView) {
+        [mapView removeGestureRecognizer:_tapGesture];
+        _tapGesture = nil;
+    }
+}
+
+
+//地图缩放并跟踪到指定坐标
+- (void)mapView:(MKMapView *)mapView moveToCoordinate:(CLLocationCoordinate2D)coordinate {
+    if (mapView) {
+        MKCoordinateRegion ragionCoor = MKCoordinateRegionMake(coordinate,
+                                                               MKCoordinateSpanMake(0.005, 0.005));
+        [mapView setRegion:ragionCoor animated:YES];
+    }
+}
+@end
 
 @implementation MainViewController
 
@@ -25,7 +61,6 @@
 @synthesize startCoordinate = _startCoordinate;
 @synthesize targetCoordinate = _targetCoordinate;
 @synthesize companyButton = _companyButton;
-
 static NSString *kGoogleGeoApi = @"http://maps.google.com/maps/api/geocode/json?address=";
 static NSString *kGoogleDecApi = @"http://maps.google.com/maps/api/geocode/json?latlng=";
 static ASIHTTPRequest *kRequest = nil;
@@ -57,24 +92,11 @@ static ASIHTTPRequest *kRequest = nil;
     [_mapView removeAnnotations:toRemove]; 
 }
 
-- (void)mapLongPressed:(UILongPressGestureRecognizer *)touch {
 
-    CGPoint touchPoint = [touch locationInView:_mapView];
-    PlaceAnnotation *anno = [[PlaceAnnotation alloc] init];
-    anno.title = NSLocalizedString(@"User Selected Place", @"User Selected Place");
-    anno.subtitle = @"";
-    anno.coordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
-
-    
-    //如果有一个请求，先取消这个请求
-//    if (kRequest) {
-//        [kRequest clearDelegatesAndCancel];
-//    }
+//根据地图坐标下载位置信息
+- (NSDictionary *)getAddressFromCoordinate:(CLLocationCoordinate2D)coordinate {
     NSMutableString *url = [NSMutableString stringWithString:kGoogleDecApi];
-    
-    [url appendString:[NSString stringWithFormat:@"%@,%@&language=zh-CN&sensor=true", [NSNumber numberWithDouble:anno.coordinate.latitude], [NSNumber numberWithDouble:anno.coordinate.longitude]]];
-    
-    NSLog(@"%@", url);
+    [url appendString:[NSString stringWithFormat:@"%@,%@&language=zh-CN&sensor=true", [NSNumber numberWithDouble:coordinate.latitude], [NSNumber numberWithDouble:coordinate.longitude]]];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
     [request startSynchronous];
     NSError *error = [request error];
@@ -84,23 +106,62 @@ static ASIHTTPRequest *kRequest = nil;
         NSData *responseData = [request responseData];
         NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:responseData error:NULL];
         [dict writeToURL:[self itemDataFilePath] atomically:YES];
-        
-        if ([[dict valueForKey:@"results"] count]) {
-            NSString *add = [[[dict valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
+        return dict;
+    }
+    else
+        return nil;
+}
+
+
+//长按地图上的一个点，获取坐标和位置信息
+- (void)mapLongPressed:(UILongPressGestureRecognizer *)touch {
+
+    CGPoint touchPoint = [touch locationInView:_mapView];
+    PlaceAnnotation *anno = [[PlaceAnnotation alloc] init];
+    anno.title = NSLocalizedString(@"User Selected Place", @"User Selected Place");
+    anno.subtitle = @"";
+    anno.coordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
+//
+//    
+//    NSMutableString *url = [NSMutableString stringWithString:kGoogleDecApi];
+//    
+//    [url appendString:[NSString stringWithFormat:@"%@,%@&language=zh-CN&sensor=true", [NSNumber numberWithDouble:anno.coordinate.latitude], [NSNumber numberWithDouble:anno.coordinate.longitude]]];
+//    
+//    NSLog(@"%@", url);
+//    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+//    [request startSynchronous];
+//    NSError *error = [request error];
+//    if (!error) {
+//        NSString *responseString = [request responseString];
+//        NSLog(@"%@", responseString);
+//        NSData *responseData = [request responseData];
+//        NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:responseData error:NULL];
+//        [dict writeToURL:[self itemDataFilePath] atomically:YES];
+//        
+//        if ([[dict valueForKey:@"results"] count]) {
+//            NSString *add = [[[dict valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
+//            anno.address = add;
+//            anno.subtitle = add;
+//            anno.title = @"用户选择的地点";
+//            [self removeAnnotations];
+//            [_mapView addAnnotation:anno];
+//        }
+//
+//    }
+    NSDictionary *resultDic = [self getAddressFromCoordinate:anno.coordinate];
+    if (resultDic) {
+        if ([[resultDic valueForKey:@"results"] count]) {
+            NSString *add = [[[resultDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
             anno.address = add;
             anno.subtitle = add;
             anno.title = @"用户选择的地点";
             [self removeAnnotations];
-//            [_mapView removeAnnotations:_mapView.annotations];
             [_mapView addAnnotation:anno];
         }
-
     }
-    
-
-    
 }
 
+bool mapTapped = NO;
 - (void)mapTapped:(UITapGestureRecognizer *)tap {
     if ([_searchBar isFirstResponder]) {
         CGPoint point = self.view.center;
@@ -113,6 +174,8 @@ static ASIHTTPRequest *kRequest = nil;
         self.view.transform = CGAffineTransformIdentity;
         self.view.center = point;
         [_searchBar resignFirstResponder];
+        _mapStyleSwitch.hidden = !_mapStyleSwitch.hidden;
+        [self removeTapGesture];
         [UIView commitAnimations];
     }
 }
@@ -136,9 +199,10 @@ static ASIHTTPRequest *kRequest = nil;
     [_mapView addGestureRecognizer:tgr];
     [tgr release];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
-    [_mapView addGestureRecognizer:tap];
-    [tap release];
+    
+//    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
+//    [_mapView addGestureRecognizer:_tapGesture];
+//    [_tapGesture release];
     
     LocateAndDownload *lAndD = [[LocateAndDownload alloc] init];
     lAndD.delegate = self;
@@ -201,6 +265,7 @@ static ASIHTTPRequest *kRequest = nil;
 
 #pragma mark - UISearchBar Delegate
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [self addTapGestureFromMapView:_mapView];
     CGPoint point = self.view.center;
     point.y -= 210;
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -214,6 +279,7 @@ static ASIHTTPRequest *kRequest = nil;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self removeTapGestureFromMapView:_mapView];
     _searchString = _searchBar.text;
     [_searchBar resignFirstResponder];
     NSLog(@"Search:%@", _searchString);
@@ -280,6 +346,7 @@ static ASIHTTPRequest *kRequest = nil;
 
 - (IBAction)searchButtonPressed:(id)sender {
     _searchBar.hidden = !_searchBar.hidden;
+    _mapStyleSwitch.hidden = !_mapStyleSwitch.hidden;
 }
 
 - (IBAction)mapTypeSwitched:(id)sender {
@@ -331,16 +398,36 @@ static ASIHTTPRequest *kRequest = nil;
     [companyViewController release];
 }
 
+#pragma mark - Action Sheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (!_locationStr) {
+        return;
+    }
+    switch (buttonIndex) {
+        case SHEET_START_BTN_INDEX:
+            _startPointTextField.text = _locationStr;
+            break;
+        case SHEET_TARGET_BTN_INDEX:
+            _targetPointTextField.text = _locationStr;
+            break;
+        default:
+            break;
+    }
+    _locationStr = nil;
+}
+
 #pragma mark - Map Delegate
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-//    kSelectedAnnotation = view.annotation;
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Place Selection", @"Place Selection") message:NSLocalizedString(@"Are you sure about the place?", @"Are You Sure About The Place?") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"OK", @"OK"), nil];
-//    [alert show];
-//    [alert release];
+
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择地点类型" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"出发地", @"目的地", nil];
+    [sheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [sheet showInView:self.view];
+    [sheet release];
     NSString *str = nil;
     if ([view.annotation isKindOfClass:[PlaceAnnotation class]]) {
-        str = ((PlaceAnnotation *)view.annotation).address;
+        _locationStr = ((PlaceAnnotation *)view.annotation).address;
     }
+    return;
     if (_locationTypeSwitch.selectedSegmentIndex == 0) {
         if (str) {
             _startPointTextField.text = str;
@@ -368,7 +455,7 @@ static ASIHTTPRequest *kRequest = nil;
         pinView.pinColor = MKPinAnnotationColorRed;
         pinView.canShowCallout = YES;
         pinView.animatesDrop = YES;
-        
+        pinView.draggable = YES;
         if (_locationTypeSwitch.selectedSegmentIndex == 0) {
             pinView.pinColor = MKPinAnnotationColorPurple;
         }
@@ -386,7 +473,27 @@ static ASIHTTPRequest *kRequest = nil;
     return pinView;
 }
 
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
+    if (newState == MKAnnotationViewDragStateEnding) {
+        PlaceAnnotation *anno = view.annotation;
+        if (anno) {
+            NSDictionary *resultDic = [self getAddressFromCoordinate:anno.coordinate];
+            if (resultDic) {
+                if ([[resultDic valueForKey:@"results"] count]) {
+                    NSString *add = [[[resultDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
+                    anno.address = add;
+                    anno.subtitle = add;
+                    anno.title = @"用户选择的地点";
+                }
+            }
+        }
+    }
+}
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+
+    //[self mapView:mapView moveToCoordinate:userLocation.coordinate];
+}
 
 #pragma LocateAndDownload Delegate
 
