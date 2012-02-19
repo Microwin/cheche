@@ -37,6 +37,7 @@
     NSString *_locationStr; //选中的地址字符串
     
     UIControl *_upperView;  //上层视图
+    
     UIControl *_baseView;  //下层视图
 }
 @property (nonatomic, retain) IBOutlet UIControl *upperView;

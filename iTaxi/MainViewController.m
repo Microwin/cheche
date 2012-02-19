@@ -391,6 +391,7 @@ static ASIHTTPRequest *kRequest = nil;
     [_startPointTextField resignFirstResponder];
     [_targetPointTextField resignFirstResponder];
     [_telTextField resignFirstResponder];
+    [_searchBar resignFirstResponder];
 }
 
 - (IBAction)companyButtonPressed:(id)sender {
