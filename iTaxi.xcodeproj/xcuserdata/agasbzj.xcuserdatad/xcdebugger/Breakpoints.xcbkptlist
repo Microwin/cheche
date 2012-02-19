@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "351341335.388015"
+         timestampString = "351348089.646194"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "602"
-         endingLineNumber = "602"
+         startingLineNumber = "603"
+         endingLineNumber = "603"
          landmarkName = "-showLowerView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -23,11 +23,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "351341335.388015"
+         timestampString = "351348089.646194"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "569"
-         endingLineNumber = "569"
+         startingLineNumber = "570"
+         endingLineNumber = "570"
          landmarkName = "-showUpperView"
          landmarkType = "5">
       </FileBreakpoint>

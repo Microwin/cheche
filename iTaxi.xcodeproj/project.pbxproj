@@ -74,6 +74,11 @@
 		A95517FD14F11CA200C6A6E2 /* u=1631489098,733646060&fm=0&gp=0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95517F514F11CA100C6A6E2 /* u=1631489098,733646060&fm=0&gp=0.jpg */; };
 		A95517FE14F11CA200C6A6E2 /* u=2967511403,833406184&fm=0&gp=0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95517F614F11CA100C6A6E2 /* u=2967511403,833406184&fm=0&gp=0.jpg */; };
 		A955180014F11F2A00C6A6E2 /* sy_20120209160312081026.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A95517FF14F11F2A00C6A6E2 /* sy_20120209160312081026.jpg */; };
+		A955180614F123C700C6A6E2 /* u=940584589,192444853&fm=0&gp=0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A955180514F123C700C6A6E2 /* u=940584589,192444853&fm=0&gp=0.jpg */; };
+		A955180814F1242500C6A6E2 /* 1-111023011409.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A955180714F1242500C6A6E2 /* 1-111023011409.jpg */; };
+		A955180A14F1255E00C6A6E2 /* 1-100930103225.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A955180914F1255E00C6A6E2 /* 1-100930103225.jpg */; };
+		A955180C14F1283B00C6A6E2 /* 地图框.png in Resources */ = {isa = PBXBuildFile; fileRef = A955180B14F1283B00C6A6E2 /* 地图框.png */; };
+		A955181014F1308E00C6A6E2 /* 8853bd5b7c66f6659a33f085cccad3fa.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A955180F14F1308D00C6A6E2 /* 8853bd5b7c66f6659a33f085cccad3fa.jpg */; };
 		A95A82DC13B850D200FC730D /* HistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95A82DB13B850D200FC730D /* HistoryTableCell.m */; };
 		A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95A82DE13B850E200FC730D /* HistoryTableCell.xib */; };
 		A9B6746F14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9B6746E14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg */; };
@@ -198,6 +203,11 @@
 		A95517F514F11CA100C6A6E2 /* u=1631489098,733646060&fm=0&gp=0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "u=1631489098,733646060&fm=0&gp=0.jpg"; sourceTree = "<group>"; };
 		A95517F614F11CA100C6A6E2 /* u=2967511403,833406184&fm=0&gp=0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "u=2967511403,833406184&fm=0&gp=0.jpg"; sourceTree = "<group>"; };
 		A95517FF14F11F2A00C6A6E2 /* sy_20120209160312081026.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sy_20120209160312081026.jpg; sourceTree = "<group>"; };
+		A955180514F123C700C6A6E2 /* u=940584589,192444853&fm=0&gp=0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "u=940584589,192444853&fm=0&gp=0.jpg"; sourceTree = "<group>"; };
+		A955180714F1242500C6A6E2 /* 1-111023011409.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1-111023011409.jpg"; sourceTree = "<group>"; };
+		A955180914F1255E00C6A6E2 /* 1-100930103225.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1-100930103225.jpg"; sourceTree = "<group>"; };
+		A955180B14F1283B00C6A6E2 /* 地图框.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "地图框.png"; sourceTree = "<group>"; };
+		A955180F14F1308D00C6A6E2 /* 8853bd5b7c66f6659a33f085cccad3fa.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 8853bd5b7c66f6659a33f085cccad3fa.jpg; sourceTree = "<group>"; };
 		A95A82DA13B850D200FC730D /* HistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableCell.h; sourceTree = "<group>"; };
 		A95A82DB13B850D200FC730D /* HistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableCell.m; sourceTree = "<group>"; };
 		A95A82DE13B850E200FC730D /* HistoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableCell.xib; sourceTree = "<group>"; };
@@ -481,6 +491,11 @@
 		A9B6746C14EFE4B9007A06F7 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				A955180F14F1308D00C6A6E2 /* 8853bd5b7c66f6659a33f085cccad3fa.jpg */,
+				A955180B14F1283B00C6A6E2 /* 地图框.png */,
+				A955180914F1255E00C6A6E2 /* 1-100930103225.jpg */,
+				A955180714F1242500C6A6E2 /* 1-111023011409.jpg */,
+				A955180514F123C700C6A6E2 /* u=940584589,192444853&fm=0&gp=0.jpg */,
 				A95517FF14F11F2A00C6A6E2 /* sy_20120209160312081026.jpg */,
 				A95517EF14F11CA100C6A6E2 /* 102.png */,
 				A95517F014F11CA100C6A6E2 /* 131.png */,
@@ -578,6 +593,11 @@
 				A95517FD14F11CA200C6A6E2 /* u=1631489098,733646060&fm=0&gp=0.jpg in Resources */,
 				A95517FE14F11CA200C6A6E2 /* u=2967511403,833406184&fm=0&gp=0.jpg in Resources */,
 				A955180014F11F2A00C6A6E2 /* sy_20120209160312081026.jpg in Resources */,
+				A955180614F123C700C6A6E2 /* u=940584589,192444853&fm=0&gp=0.jpg in Resources */,
+				A955180814F1242500C6A6E2 /* 1-111023011409.jpg in Resources */,
+				A955180A14F1255E00C6A6E2 /* 1-100930103225.jpg in Resources */,
+				A955180C14F1283B00C6A6E2 /* 地图框.png in Resources */,
+				A955181014F1308E00C6A6E2 /* 8853bd5b7c66f6659a33f085cccad3fa.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

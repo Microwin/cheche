@@ -50,6 +50,8 @@
 
     _dataArray = [[NSMutableArray arrayWithContentsOfFile:[self histroyDataFilePath]] retain];
     self.tableView.rowHeight = 100;
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)viewDidUnload
