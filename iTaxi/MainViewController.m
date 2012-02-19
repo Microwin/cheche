@@ -56,11 +56,12 @@
 @synthesize searchBar = _searchBar;
 @synthesize mapView = _mapView;
 @synthesize mapStyleSwitch = _mapStyleSwitch;
-@synthesize locationTypeSwitch = _locationTypeSwitch;
 @synthesize searchString = _searchString;
 @synthesize startCoordinate = _startCoordinate;
 @synthesize targetCoordinate = _targetCoordinate;
 @synthesize companyButton = _companyButton;
+@synthesize upperView = _upperView;
+@synthesize baseView = _baseView;
 static NSString *kGoogleGeoApi = @"http://maps.google.com/maps/api/geocode/json?address=";
 static NSString *kGoogleDecApi = @"http://maps.google.com/maps/api/geocode/json?latlng=";
 static ASIHTTPRequest *kRequest = nil;
@@ -118,8 +119,8 @@ static ASIHTTPRequest *kRequest = nil;
         anno.address = add;
         anno.subtitle = add;
         anno.title = @"用户选择的地点";
-        [self removeAnnotations];
-        [_mapView addAnnotation:anno];
+//        [self removeAnnotations];
+//        [_mapView addAnnotation:anno];
     }
 }
 
@@ -150,28 +151,29 @@ static ASIHTTPRequest *kRequest = nil;
     CGPoint touchPoint = [touch locationInView:_mapView];
     PlaceAnnotation *anno = [[PlaceAnnotation alloc] init];
     anno.title = NSLocalizedString(@"User Selected Place", @"User Selected Place");
-    anno.subtitle = @"";
+    anno.subtitle = @"地址加载中...";
     anno.coordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
+    [self removeAnnotations];
+    [_mapView addAnnotation:anno];
+    [_mapView selectAnnotation:anno animated:YES];
     [self performSelectorInBackground:@selector(getAddressFromAnnoation:) withObject:anno];
 
 }
 
-bool mapTapped = NO;
 - (void)mapTapped:(UITapGestureRecognizer *)tap {
     if ([_searchBar isFirstResponder]) {
-        CGPoint point = self.view.center;
-        point.y += 210;
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [UIView beginAnimations:nil context:context];
-        [UIView setAnimationDuration:.3f];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-        self.view.transform = CGAffineTransformIdentity;
-        self.view.center = point;
+//        CGPoint point = _baseView.center;
+//        point.y += 210;
+//        CGContextRef context = UIGraphicsGetCurrentContext();
+//        [UIView beginAnimations:nil context:context];
+//        [UIView setAnimationDuration:.3f];
+//        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:_baseView cache:YES];
+//        _baseView.transform = CGAffineTransformIdentity;
+//        _baseView.center = point;
         [_searchBar resignFirstResponder];
-        _mapStyleSwitch.hidden = !_mapStyleSwitch.hidden;
         [self removeTapGestureFromMapView:_mapView];
-        [UIView commitAnimations];
+//        [UIView commitAnimations];
     }
 }
 
@@ -194,10 +196,10 @@ bool mapTapped = NO;
     [_mapView addGestureRecognizer:tgr];
     [tgr release];
     
-    
-//    _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
-//    [_mapView addGestureRecognizer:_tapGesture];
-//    [_tapGesture release];
+    _lowerTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showLowerView)];
+    [_mapView addGestureRecognizer:_lowerTapGesture];
+    [_lowerTapGesture release];
+
     
     LocateAndDownload *lAndD = [[LocateAndDownload alloc] init];
     lAndD.delegate = self;
@@ -251,8 +253,9 @@ bool mapTapped = NO;
     [_searchBar release];
     [_mapView release];
     [_mapStyleSwitch release];
-    [_locationTypeSwitch release];
     [_companyButton release];
+    [_upperView release];
+    [_baseView release];
     [super dealloc];
 }
 
@@ -261,16 +264,16 @@ bool mapTapped = NO;
 #pragma mark - UISearchBar Delegate
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [self addTapGestureFromMapView:_mapView];
-    CGPoint point = self.view.center;
-    point.y -= 210;
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationDuration:.3f];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-    self.view.transform = CGAffineTransformIdentity;
-    self.view.center = point;
-    [UIView commitAnimations];
+//    CGPoint point = self.view.center;
+//    point.y -= 210;
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    [UIView beginAnimations:nil context:context];
+//    [UIView setAnimationDuration:.3f];
+//    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+//    self.view.transform = CGAffineTransformIdentity;
+//    self.view.center = point;
+//    [UIView commitAnimations];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -288,17 +291,17 @@ bool mapTapped = NO;
     [request setDelegate:self];
     [request startAsynchronous];
     
-    CGPoint point = self.view.center;
-    point.y += 210;
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    [UIView beginAnimations:nil context:context];
-    [UIView setAnimationDuration:.3f];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
-    _searchBar.hidden = YES;
-    self.view.transform = CGAffineTransformIdentity;
-    self.view.center = point;
-    [UIView commitAnimations];
+//    CGPoint point = self.view.center;
+//    point.y += 210;
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    [UIView beginAnimations:nil context:context];
+//    [UIView setAnimationDuration:.3f];
+//    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:self.view cache:YES];
+//    _searchBar.hidden = YES;
+//    self.view.transform = CGAffineTransformIdentity;
+//    self.view.center = point;
+//    [UIView commitAnimations];
 }
 
 #pragma mark - ASIHttpRequest Delegate
@@ -316,6 +319,7 @@ bool mapTapped = NO;
         NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:responseData error:NULL];
         [dict writeToURL:[self itemDataFilePath] atomically:YES];
         NSArray *array = [dict valueForKey:@"results"];
+        PlaceAnnotation *firstAnno = nil;
         for (NSDictionary *dic in array) {
             
             PlaceAnnotation *anno = [[PlaceAnnotation alloc] init];
@@ -326,9 +330,12 @@ bool mapTapped = NO;
             anno.coordinate = CLLocationCoordinate2DMake([[loc valueForKey:@"lat"] doubleValue], [[loc valueForKey:@"lng"] doubleValue]);
             [_mapView addAnnotation:anno];
             [anno release];
+            firstAnno = anno;
         }
         _searchBar.hidden = YES;
-
+        if (firstAnno) {
+            [self mapView:_mapView moveToCoordinate:firstAnno.coordinate];
+        }
     }
     
     kRequest = nil;
@@ -341,7 +348,7 @@ bool mapTapped = NO;
 
 - (IBAction)searchButtonPressed:(id)sender {
     _searchBar.hidden = !_searchBar.hidden;
-    _mapStyleSwitch.hidden = !_mapStyleSwitch.hidden;
+    [self showLowerView];
 }
 
 - (IBAction)mapTypeSwitched:(id)sender {
@@ -422,17 +429,7 @@ bool mapTapped = NO;
     if ([view.annotation isKindOfClass:[PlaceAnnotation class]]) {
         _locationStr = ((PlaceAnnotation *)view.annotation).address;
     }
-    return;
-    if (_locationTypeSwitch.selectedSegmentIndex == 0) {
-        if (str) {
-            _startPointTextField.text = str;
-        }
-        
-    }
-    else
-        if (str) {
-            _targetPointTextField.text = str;
-        }
+
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -450,16 +447,11 @@ bool mapTapped = NO;
         pinView.pinColor = MKPinAnnotationColorRed;
         pinView.canShowCallout = YES;
         pinView.animatesDrop = YES;
-        pinView.draggable = YES;
-        if (_locationTypeSwitch.selectedSegmentIndex == 0) {
-            pinView.pinColor = MKPinAnnotationColorPurple;
-        }
-        
+        pinView.draggable = YES;        
         UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         pinView.rightCalloutAccessoryView = rightButton;
-        
+
     }
-    
     return pinView;
 }
 
@@ -522,7 +514,6 @@ bool showSelf = NO;
     _targetPointTextField.text = @"";
     _telTextField.text = @"";
     [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
-    _locationTypeSwitch.selectedSegmentIndex = 0;
     _mapStyleSwitch.selectedSegmentIndex = 0;
     _searchBar.text = @"";
     _searchBar.hidden = YES;
@@ -563,5 +554,75 @@ bool showSelf = NO;
 #pragma mark - CompanySelect Delegate
 - (void)companySelected:(NSString *)name {
     [_companyButton setTitle:name forState:UIControlStateNormal];
+}
+
+
+
+#pragma mark - View Exchange
+bool upperViewShown = YES;
+bool lowerViewShown = NO;
+
+- (void)showUpperView {
+    if (upperViewShown) {
+        return;
+    }
+    [_upperView removeGestureRecognizer:_upperTapGesture];
+    _upperTapGesture = nil;
+    if (!_lowerTapGesture) {
+        _lowerTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showLowerView)];
+        [_mapView addGestureRecognizer:_lowerTapGesture];
+        [_lowerTapGesture release];
+    }
+    [_searchBar resignFirstResponder];
+    _searchBar.hidden = YES;
+    //CGPoint point = self.view.center;
+    CGPoint point = _baseView.center;
+    point.y += 180;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:.3f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:_baseView cache:YES];
+    _baseView.transform = CGAffineTransformIdentity;
+    _baseView.center = point;
+    [UIView commitAnimations];
+    lowerViewShown = NO;
+    upperViewShown = YES;
+//    [_upperView removeGestureRecognizer:_viewChangeTapGesture];
+//    _viewChangeTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showLowerView)];
+//    [_lowerView addGestureRecognizer:_viewChangeTapGesture];
+//    [_viewChangeTapGesture release];
+
+}
+
+- (void)showLowerView {
+    if (lowerViewShown) {
+        return;
+    }
+    [_mapView removeGestureRecognizer:_lowerTapGesture];
+    _lowerTapGesture = nil;
+    if (!_upperTapGesture) {
+        _upperTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUpperView)];
+        [_upperView addGestureRecognizer:_upperTapGesture];
+        [_upperTapGesture release];
+    }
+    //CGPoint point = self.view.center;
+    CGPoint point = _baseView.center;
+    point.y -= 180;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:.3f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:_baseView cache:YES];
+    _baseView.transform = CGAffineTransformIdentity;
+    _baseView.center = point;
+    [UIView commitAnimations];
+    upperViewShown = NO;
+    lowerViewShown = YES;
+//    [_lowerView removeGestureRecognizer:_viewChangeTapGesture];
+//    _viewChangeTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUpperView)];
+//    [_upperView addGestureRecognizer:_viewChangeTapGesture];
+//    [_viewChangeTapGesture release];
+
 }
 @end
