@@ -112,6 +112,37 @@ static ASIHTTPRequest *kRequest = nil;
         return nil;
 }
 
+- (void)updateAnnotation:(PlaceAnnotation *)anno withDict:(NSDictionary *)resultDic {
+    if ([[resultDic valueForKey:@"results"] count]) {
+        NSString *add = [[[resultDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
+        anno.address = add;
+        anno.subtitle = add;
+        anno.title = @"用户选择的地点";
+        [self removeAnnotations];
+        [_mapView addAnnotation:anno];
+    }
+}
+
+
+//异步获取指定坐标的位置信息描述
+- (void)getAddressFromAnnoation:(PlaceAnnotation *)annotation {
+    NSMutableString *url = [NSMutableString stringWithString:kGoogleDecApi];
+    [url appendString:[NSString stringWithFormat:@"%@,%@&language=zh-CN&sensor=true", [NSNumber numberWithDouble:annotation.coordinate.latitude], [NSNumber numberWithDouble:annotation.coordinate.longitude]]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request startSynchronous];
+    NSError *error = [request error];
+    if (!error) {
+        NSString *responseString = [request responseString];
+        NSLog(@"%@", responseString);
+        NSData *responseData = [request responseData];
+        NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:responseData error:NULL];
+        [dict writeToURL:[self itemDataFilePath] atomically:YES];
+        [self performSelector:@selector(updateAnnotation:withDict:) withObject:annotation withObject:dict];
+        //return dict;
+    }
+
+}
+
 
 //长按地图上的一个点，获取坐标和位置信息
 - (void)mapLongPressed:(UILongPressGestureRecognizer *)touch {
@@ -121,17 +152,8 @@ static ASIHTTPRequest *kRequest = nil;
     anno.title = NSLocalizedString(@"User Selected Place", @"User Selected Place");
     anno.subtitle = @"";
     anno.coordinate = [_mapView convertPoint:touchPoint toCoordinateFromView:_mapView];
-    NSDictionary *resultDic = [self getAddressFromCoordinate:anno.coordinate];
-    if (resultDic) {
-        if ([[resultDic valueForKey:@"results"] count]) {
-            NSString *add = [[[resultDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
-            anno.address = add;
-            anno.subtitle = add;
-            anno.title = @"用户选择的地点";
-            [self removeAnnotations];
-            [_mapView addAnnotation:anno];
-        }
-    }
+    [self performSelectorInBackground:@selector(getAddressFromAnnoation:) withObject:anno];
+
 }
 
 bool mapTapped = NO;
@@ -432,11 +454,6 @@ bool mapTapped = NO;
         if (_locationTypeSwitch.selectedSegmentIndex == 0) {
             pinView.pinColor = MKPinAnnotationColorPurple;
         }
-        // add a detail disclosure button to the callout which will open a new view controller page
-        //
-        // note: you can assign a specific call out accessory view, or as MKMapViewDelegate you can implement:
-        //  - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control;
-        //
         
         UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         pinView.rightCalloutAccessoryView = rightButton;
@@ -446,26 +463,24 @@ bool mapTapped = NO;
     return pinView;
 }
 
+
+
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
     if (newState == MKAnnotationViewDragStateEnding) {
         PlaceAnnotation *anno = view.annotation;
         if (anno) {
-            NSDictionary *resultDic = [self getAddressFromCoordinate:anno.coordinate];
-            if (resultDic) {
-                if ([[resultDic valueForKey:@"results"] count]) {
-                    NSString *add = [[[resultDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"formatted_address"];
-                    anno.address = add;
-                    anno.subtitle = add;
-                    anno.title = @"用户选择的地点";
-                }
-            }
+            [self getAddressFromAnnoation:anno];
         }
     }
 }
 
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
 
-    //[self mapView:mapView moveToCoordinate:userLocation.coordinate];
+bool showSelf = NO;
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    if (!showSelf) {
+        [self mapView:mapView moveToCoordinate:userLocation.coordinate];
+        showSelf = YES;
+    }
 }
 
 #pragma LocateAndDownload Delegate
