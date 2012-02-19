@@ -63,7 +63,6 @@
 		A90FE11814F0CD230087A680 /* ASIS3Request.m in Sources */ = {isa = PBXBuildFile; fileRef = A90FE0E314F0CD230087A680 /* ASIS3Request.m */; };
 		A90FE11914F0CD230087A680 /* ASIS3ServiceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A90FE0E514F0CD230087A680 /* ASIS3ServiceRequest.m */; };
 		A90FE12F14F0CE320087A680 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A90FE12E14F0CE310087A680 /* Reachability.m */; };
-		A95517EA14F0D3BF00C6A6E2 /* GetAddressOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A95517E914F0D3BF00C6A6E2 /* GetAddressOperation.m */; };
 		A95A82DC13B850D200FC730D /* HistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95A82DB13B850D200FC730D /* HistoryTableCell.m */; };
 		A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95A82DE13B850E200FC730D /* HistoryTableCell.xib */; };
 		A9B6746F14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9B6746E14EFE5D1007A06F7 /* 2457331_145129860354_2.jpg */; };
@@ -177,8 +176,6 @@
 		A90FE0E514F0CD230087A680 /* ASIS3ServiceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIS3ServiceRequest.m; sourceTree = "<group>"; };
 		A90FE12D14F0CE310087A680 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		A90FE12E14F0CE310087A680 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		A95517E814F0D3BF00C6A6E2 /* GetAddressOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAddressOperation.h; sourceTree = "<group>"; };
-		A95517E914F0D3BF00C6A6E2 /* GetAddressOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAddressOperation.m; sourceTree = "<group>"; };
 		A95A82DA13B850D200FC730D /* HistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableCell.h; sourceTree = "<group>"; };
 		A95A82DB13B850D200FC730D /* HistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableCell.m; sourceTree = "<group>"; };
 		A95A82DE13B850E200FC730D /* HistoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableCell.xib; sourceTree = "<group>"; };
@@ -362,7 +359,6 @@
 		A90AFD1813B7568F002FD85D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A95517E614F0D38200C6A6E2 /* Operation */,
 				4108674B13B32803006F0B7B /* MainViewController.h */,
 				4108674C13B32803006F0B7B /* MainViewController.m */,
 				4108674E13B32803006F0B7B /* MainView.xib */,
@@ -458,15 +454,6 @@
 				A90FE0E514F0CD230087A680 /* ASIS3ServiceRequest.m */,
 			);
 			path = S3;
-			sourceTree = "<group>";
-		};
-		A95517E614F0D38200C6A6E2 /* Operation */ = {
-			isa = PBXGroup;
-			children = (
-				A95517E814F0D3BF00C6A6E2 /* GetAddressOperation.h */,
-				A95517E914F0D3BF00C6A6E2 /* GetAddressOperation.m */,
-			);
-			name = Operation;
 			sourceTree = "<group>";
 		};
 		A9B6746C14EFE4B9007A06F7 /* Image */ = {
@@ -599,7 +586,6 @@
 				A90FE11814F0CD230087A680 /* ASIS3Request.m in Sources */,
 				A90FE11914F0CD230087A680 /* ASIS3ServiceRequest.m in Sources */,
 				A90FE12F14F0CE320087A680 /* Reachability.m in Sources */,
-				A95517EA14F0D3BF00C6A6E2 /* GetAddressOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
