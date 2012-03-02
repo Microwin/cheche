@@ -549,6 +549,9 @@
 /* Begin PBXProject section */
 		4108672913B32803006F0B7B /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 4108672C13B32803006F0B7B /* Build configuration list for PBXProject "iTaxi" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -717,12 +720,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTaxi/iTaxi-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "iTaxi/iTaxi-Info.plist";
 				PRODUCT_NAME = itaxi;
+				PROVISIONING_PROFILE = "95D0BF6A-8BCE-4B84-9E2F-74C56D978FAA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "95D0BF6A-8BCE-4B84-9E2F-74C56D978FAA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -731,11 +739,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jianjun Wu (VC2QCB97TF)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iTaxi/iTaxi-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "iTaxi/iTaxi-Info.plist";
 				PRODUCT_NAME = itaxi;
+				PROVISIONING_PROFILE = "95D0BF6A-8BCE-4B84-9E2F-74C56D978FAA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "95D0BF6A-8BCE-4B84-9E2F-74C56D978FAA";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
