@@ -9,6 +9,7 @@
 #import "iTaxiAppDelegate.h"
 
 #import "MainViewController.h"
+#import "BaiduMapViewController.h"
 
 @implementation iTaxiAppDelegate
 
@@ -21,7 +22,15 @@
 {
     // Override point for customization after application launch.
     // Add the main view controller's view to the window and display.
-    self.window.rootViewController = self.mainViewController;
+    //self.window.rootViewController = self.mainViewController;
+    _mapManager = [[BMKMapManager alloc] init];
+    _baiduMapViewController = [[BaiduMapViewController alloc] init];
+    _navigationController = [[UINavigationController alloc] initWithRootViewController:_baiduMapViewController];
+    BOOL ret = [_mapManager start:@"E80C1FA98536F1F880AC89485FC706EE3AB47924" generalDelegate:_baiduMapViewController];
+    if (!ret) {
+        NSLog(@"Baidu Map Init failed.");
+    }
+    self.window.rootViewController = _navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -69,6 +78,8 @@
 {
     [_window release];
     [_mainViewController release];
+    [_navigationController release];
+    [_baiduMapViewController release];
     [super dealloc];
 }
 

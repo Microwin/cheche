@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMKMapManager.h"
 
 @class MainViewController;
-
+@class BaiduMapViewController;
 @interface iTaxiAppDelegate : NSObject <UIApplicationDelegate> {
-
+    UINavigationController *_navigationController;
+    BMKMapManager *_mapManager;
+    BaiduMapViewController *_baiduMapViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
