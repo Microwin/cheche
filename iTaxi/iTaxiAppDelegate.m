@@ -19,9 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     // Add the main view controller's view to the window and display.
-    _mainViewController = [[MainViewController alloc] init];
+    _mainViewController = [[[MainViewController alloc] init] autorelease];
     self.window.rootViewController = self.mainViewController;
     [self.window makeKeyAndVisible];
     return YES;

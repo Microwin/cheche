@@ -65,55 +65,66 @@ static ASIHTTPRequest *kRequest = nil;
 - (id)init
 {
     self = [super init];
-    if (self) {
-        UIImage *img = [UIImage imageNamed:@"background.png"];
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
-        [self.view addSubview:imgView];
-        
-        img = [UIImage imageNamed:@"change_btn01.png"];
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(7, 287, 313, 47);
-        [btn.imageView setImage:img];
-        img = [UIImage imageNamed:@"change_btn02.png"];
-        [btn.imageView setHighlightedImage:img];
-        [self.view addSubview:btn];
-        
-        img = [UIImage imageNamed:@"send_btn01.png"];
-        UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn2.frame = CGRectMake(59, 335, 202, 49);
-        [btn2.imageView setImage:img];
-        img = [UIImage imageNamed:@"send_btn02.png"];
-        [btn2.imageView setHighlightedImage:img];
-        [self.view addSubview:btn2];
-        
-        img = [UIImage imageNamed:@"map_btn.png"];
-        UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn3.frame = CGRectMake(0, 412, 320, 48);
-        [btn3.imageView setImage:img];
-        [self.view addSubview:btn3];
-        
-        _targetPointTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 161, 197, 31)];
-        _targetPointTextField.placeholder = @"请在地图上选择或输入";
-        _targetPointTextField.borderStyle = UITextBorderStyleNone;
-        [self.view addSubview:_targetPointTextField];
-        
-        _startPointTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 112, 197, 31)];
-        _startPointTextField.placeholder = @"请在地图上选择或输入";
-        _startPointTextField.borderStyle = UITextBorderStyleNone;
-        [self.view addSubview:_startPointTextField];
-        
-        _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 208, 197, 31)];
-        _telTextField.placeholder = @"调度中心将以此与您联系";
-        _telTextField.borderStyle = UITextBorderStyleNone;
-        [self.view addSubview:_telTextField];
+    if (self) {        
+
     }
     return self;
+}
+
+- (void)initUIElement
+{
+    UIImage *img = [UIImage imageNamed:@"background.png"];
+    UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
+    [self.view addSubview:imgView];
+    
+    img = [UIImage imageNamed:@"change_btn01.png"];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:@"请选择出租车公司" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    btn.frame = CGRectMake(7, 287, 313, 47);
+    [btn setBackgroundImage:img forState:UIControlStateNormal];
+    img = [UIImage imageNamed:@"change_btn02.png"];
+    [btn setBackgroundImage:img forState:UIControlStateHighlighted];
+    [self.view addSubview:btn];
+    
+    img = [UIImage imageNamed:@"send_btn01.png"];
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn2.frame = CGRectMake(59, 350, 202, 49);
+    [btn2 setBackgroundImage:img forState:UIControlStateNormal];
+    img = [UIImage imageNamed:@"send_btn02.png"];
+    [btn2 setBackgroundImage:img forState:UIControlStateHighlighted];
+    [self.view addSubview:btn2];
+    
+    img = [UIImage imageNamed:@"map_btn.png"];
+    UIButton *btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn3.frame = CGRectMake(0, 412, 320, 48);
+    [btn3 setBackgroundImage:img forState:UIControlStateNormal];
+    [btn3 addTarget:self action:@selector(showMap:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn3];
+    
+    _targetPointTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 164, 197, 31)];
+    _targetPointTextField.placeholder = @"请在地图上选择或输入";
+    _targetPointTextField.borderStyle = UITextBorderStyleNone;
+    [self.view addSubview:_targetPointTextField];
+    
+    _startPointTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 114, 197, 31)];
+    _startPointTextField.placeholder = @"请在地图上选择或输入";
+    _startPointTextField.borderStyle = UITextBorderStyleNone;
+    [self.view addSubview:_startPointTextField];
+    
+    _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 212, 197, 31)];
+    _telTextField.placeholder = @"调度中心将以此与您联系";
+    _telTextField.borderStyle = UITextBorderStyleNone;
+    _telTextField.delegate = self;
+    [self.view addSubview:_telTextField];
+    
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initUIElement];
     LocateAndDownload *lAndD = [[LocateAndDownload alloc] init];
     lAndD.delegate = self;
     [lAndD startStandardUpdates];
@@ -172,9 +183,25 @@ static ASIHTTPRequest *kRequest = nil;
 
 
 
-#pragma mark - IBActions
+#pragma mark - Selectors
 
-- (IBAction)showMap:(id)sender
+- (void)closeKeyboard:(id)sender
+{
+    if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
+        [self.view removeGestureRecognizer:(UITapGestureRecognizer *)sender];
+    }
+    if ([_targetPointTextField isFirstResponder]) {
+        [_targetPointTextField resignFirstResponder];
+    }
+    if ([_startPointTextField isFirstResponder]) {
+        [_startPointTextField resignFirstResponder];
+    }
+    if ([_telTextField isFirstResponder]) {
+        [_telTextField resignFirstResponder];
+    }
+}
+
+- (void)showMap:(id)sender
 {
     _mapViewController = [[MapViewController alloc] init];
     _mapViewController.modalTransitionStyle = UIModalTransitionStylePartialCurl;
@@ -194,6 +221,16 @@ static ASIHTTPRequest *kRequest = nil;
     [self presentModalViewController:companyViewController animated:YES];
     [companyViewController release];
 }
+
+#pragma mark - UITextField Delegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    UITapGestureRecognizer *reg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeKeyboard:)];
+    [self.view addGestureRecognizer:reg];
+    [reg release];
+}
+
+
 
 #pragma mark - Action Sheet Delegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

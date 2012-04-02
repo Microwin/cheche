@@ -8,12 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iTaxi/MainViewController.m"
-         timestampString = "355060325.295267"
+         timestampString = "355068553.407701"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "101"
-         endingLineNumber = "101"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
+         landmarkName = "-showMap"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

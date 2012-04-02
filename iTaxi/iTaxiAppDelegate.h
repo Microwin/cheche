@@ -10,12 +10,12 @@
 
 @class MainViewController;
 
-@interface iTaxiAppDelegate : NSObject <UIApplicationDelegate> {
+@interface iTaxiAppDelegate : UIResponder <UIApplicationDelegate> {
 
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, strong) UIWindow *window;
 
-@property (nonatomic, retain) MainViewController *mainViewController;
+@property (nonatomic, strong) MainViewController *mainViewController;
 
 @end

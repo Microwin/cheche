@@ -11,7 +11,7 @@
 #import "LocateAndDownload.h"
 #import "TaxiCompanyViewController.h"
 @class MapViewController;
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, CompanySelectDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, CompanySelectDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
 @private
     UITextField *_startPointTextField;  //出发地textfield
     UITextField *_targetPointTextField; //目的地textfield

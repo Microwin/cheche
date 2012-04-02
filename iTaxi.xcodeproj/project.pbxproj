@@ -13,7 +13,6 @@
 		4108674113B32803006F0B7B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4108673F13B32803006F0B7B /* InfoPlist.strings */; };
 		4108674413B32803006F0B7B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108674313B32803006F0B7B /* main.m */; };
 		4108674713B32803006F0B7B /* iTaxiAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108674613B32803006F0B7B /* iTaxiAppDelegate.m */; };
-		4108674A13B32803006F0B7B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4108674813B32803006F0B7B /* MainWindow.xib */; };
 		4108674D13B32803006F0B7B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108674C13B32803006F0B7B /* MainViewController.m */; };
 		4108675213B32803006F0B7B /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4108675113B32803006F0B7B /* FlipsideViewController.m */; };
 		4108675413B32803006F0B7B /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4108675313B32803006F0B7B /* FlipsideView.xib */; };
@@ -68,11 +67,12 @@
 		A959859615297D76000C87A2 /* map_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A959859115297D76000C87A2 /* map_btn@2x.png */; };
 		A959859715297D76000C87A2 /* send_btn01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A959859215297D76000C87A2 /* send_btn01@2x.png */; };
 		A959859815297D76000C87A2 /* send_btn02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A959859315297D76000C87A2 /* send_btn02@2x.png */; };
-		A959859A15297D7E000C87A2 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A959859915297D7E000C87A2 /* background@2x.png */; };
-		A959859B1529819F000C87A2 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A959859D1529819F000C87A2 /* MainView.xib */; };
 		A95A82DC13B850D200FC730D /* HistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95A82DB13B850D200FC730D /* HistoryTableCell.m */; };
 		A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95A82DE13B850E200FC730D /* HistoryTableCell.xib */; };
 		A9B892C113B464880084DE04 /* GoogleLocationApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B892C013B464880084DE04 /* GoogleLocationApi.m */; };
+		A9E504781529E1AA00123A08 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E504771529E1AA00123A08 /* Default.png */; };
+		A9E5047A1529E1AC00123A08 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E504791529E1AC00123A08 /* Default@2x.png */; };
+		A9E5047C1529EB6900123A08 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E5047B1529EB6900123A08 /* background@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +86,6 @@
 		4108674313B32803006F0B7B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4108674513B32803006F0B7B /* iTaxiAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTaxiAppDelegate.h; sourceTree = "<group>"; };
 		4108674613B32803006F0B7B /* iTaxiAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iTaxiAppDelegate.m; sourceTree = "<group>"; };
-		4108674913B32803006F0B7B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		4108674B13B32803006F0B7B /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		4108674C13B32803006F0B7B /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		4108675013B32803006F0B7B /* FlipsideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlipsideViewController.h; sourceTree = "<group>"; };
@@ -186,14 +185,14 @@
 		A959859115297D76000C87A2 /* map_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_btn@2x.png"; sourceTree = "<group>"; };
 		A959859215297D76000C87A2 /* send_btn01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send_btn01@2x.png"; sourceTree = "<group>"; };
 		A959859315297D76000C87A2 /* send_btn02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send_btn02@2x.png"; sourceTree = "<group>"; };
-		A959859915297D7E000C87A2 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
-		A959859C1529819F000C87A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainView.xib; sourceTree = "<group>"; };
-		A959859E152981A7000C87A2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/MainView.xib"; sourceTree = "<group>"; };
 		A95A82DA13B850D200FC730D /* HistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableCell.h; sourceTree = "<group>"; };
 		A95A82DB13B850D200FC730D /* HistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableCell.m; sourceTree = "<group>"; };
 		A95A82DE13B850E200FC730D /* HistoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableCell.xib; sourceTree = "<group>"; };
 		A9B892BF13B464880084DE04 /* GoogleLocationApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleLocationApi.h; sourceTree = "<group>"; };
 		A9B892C013B464880084DE04 /* GoogleLocationApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleLocationApi.m; sourceTree = "<group>"; };
+		A9E504771529E1AA00123A08 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		A9E504791529E1AC00123A08 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		A9E5047B1529EB6900123A08 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +218,8 @@
 		4108672713B32803006F0B7B = {
 			isa = PBXGroup;
 			children = (
+				A9E504791529E1AC00123A08 /* Default@2x.png */,
+				A9E504771529E1AA00123A08 /* Default.png */,
 				4108673C13B32803006F0B7B /* iTaxi */,
 				4108673513B32803006F0B7B /* Frameworks */,
 				4108673313B32803006F0B7B /* Products */,
@@ -257,7 +258,6 @@
 				410867B813B33CB1006F0B7B /* Network */,
 				4108674513B32803006F0B7B /* iTaxiAppDelegate.h */,
 				4108674613B32803006F0B7B /* iTaxiAppDelegate.m */,
-				4108674813B32803006F0B7B /* MainWindow.xib */,
 				4108676B13B3361C006F0B7B /* Third Part */,
 				4108673D13B32803006F0B7B /* Supporting Files */,
 				A9B892AD13B4370E0084DE04 /* Recourse */,
@@ -371,7 +371,6 @@
 			children = (
 				4108674B13B32803006F0B7B /* MainViewController.h */,
 				4108674C13B32803006F0B7B /* MainViewController.m */,
-				A959859D1529819F000C87A2 /* MainView.xib */,
 				4108675013B32803006F0B7B /* FlipsideViewController.h */,
 				4108675113B32803006F0B7B /* FlipsideViewController.m */,
 				4108675313B32803006F0B7B /* FlipsideView.xib */,
@@ -483,7 +482,7 @@
 		A9B6746C14EFE4B9007A06F7 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				A959859915297D7E000C87A2 /* background@2x.png */,
+				A9E5047B1529EB6900123A08 /* background@2x.png */,
 				A959857E15297D37000C87A2 /* Buttons */,
 				A955180F14F1308D00C6A6E2 /* 8853bd5b7c66f6659a33f085cccad3fa.jpg */,
 			);
@@ -551,8 +550,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4108674113B32803006F0B7B /* InfoPlist.strings in Resources */,
-				4108674A13B32803006F0B7B /* MainWindow.xib in Resources */,
-				A959859B1529819F000C87A2 /* MainView.xib in Resources */,
 				4108675413B32803006F0B7B /* FlipsideView.xib in Resources */,
 				A90AFD1613B7533C002FD85D /* TaxiCompany.plist in Resources */,
 				A90AFD2113B758B3002FD85D /* TaxiCompanyTableCell.xib in Resources */,
@@ -563,7 +560,9 @@
 				A959859615297D76000C87A2 /* map_btn@2x.png in Resources */,
 				A959859715297D76000C87A2 /* send_btn01@2x.png in Resources */,
 				A959859815297D76000C87A2 /* send_btn02@2x.png in Resources */,
-				A959859A15297D7E000C87A2 /* background@2x.png in Resources */,
+				A9E504781529E1AA00123A08 /* Default.png in Resources */,
+				A9E5047A1529E1AC00123A08 /* Default@2x.png in Resources */,
+				A9E5047C1529EB6900123A08 /* background@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,23 +628,6 @@
 				4108674013B32803006F0B7B /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		4108674813B32803006F0B7B /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4108674913B32803006F0B7B /* en */,
-			);
-			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		A959859D1529819F000C87A2 /* MainView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A959859C1529819F000C87A2 /* en */,
-				A959859E152981A7000C87A2 /* zh-Hans */,
-			);
-			name = MainView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
