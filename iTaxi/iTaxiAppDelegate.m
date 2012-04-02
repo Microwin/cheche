@@ -21,6 +21,7 @@
 {
     // Override point for customization after application launch.
     // Add the main view controller's view to the window and display.
+    _mainViewController = [[MainViewController alloc] init];
     self.window.rootViewController = self.mainViewController;
     [self.window makeKeyAndVisible];
     return YES;
