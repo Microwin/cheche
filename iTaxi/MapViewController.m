@@ -9,6 +9,7 @@
 #import "MapViewController.h"
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
+#import "PlaceAnnotation.h"
 
 
 #define kDataFile @"Data.plist"
@@ -16,6 +17,9 @@
 #define SHEET_TARGET_BTN_INDEX    1
 #define kGoogleGeoApi   @"http://maps.google.com/maps/api/geocode/json?address="
 #define kGoogleDecApi   @"http://maps.google.com/maps/api/geocode/json?latlng="
+
+#define KEYBOARD_HEIGHT 250
+#define ANIMATION_SPEED 0.3
 
 @interface MapViewController ()
 - (NSString *)_encodeString:(NSString *)string;
@@ -42,9 +46,34 @@
     self = [super init];
     if (self) {
         _mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+        _mapView.showsUserLocation = YES;
+        _mapView.delegate = self;
         [self.view addSubview:_mapView];
+        [self initUI];
     }
     return self;
+}
+
+- (void)initUI
+{
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 416, 320, 44)];
+//    CGRect sFrame = _searchBar.frame;
+//    sFrame.origin.y = 436;
+//    _searchBar.frame = sFrame;
+    _searchBar.barStyle = UIBarStyleBlackTranslucent;
+    _searchBar.delegate = self;
+    [self.view addSubview:_searchBar];
+    [_searchBar release];
+    
+    _mapStyleControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Statellite", nil), NSLocalizedString(@"Hybird", nil), nil]];
+    _mapStyleControl.frame = CGRectMake(160, 40, 140, 30);
+    _mapStyleControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    _mapStyleControl.tintColor = [UIColor darkGrayColor];
+    _mapStyleControl.selectedSegmentIndex = 0;
+    [_mapStyleControl addTarget:self action:@selector(mapTypeSwitched:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:_mapStyleControl];
+    [_mapStyleControl release];
+    
 }
 
 - (void)viewDidLoad
@@ -70,20 +99,20 @@
 #pragma mark - Public Methods
 
 #pragma makr - Private Methods
-//- (void)addTapGestureFromMapView:(MKMapView *)mapView {
-//    if (!_tapGesture && mapView) {
-//        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
-//        [mapView addGestureRecognizer:_tapGesture];
-//        [_tapGesture release];
-//    }
-//}
-//
-//- (void)removeTapGestureFromMapView:(MKMapView *)mapView {
-//    if (_tapGesture && mapView) {
-//        [mapView removeGestureRecognizer:_tapGesture];
-//        _tapGesture = nil;
-//    }
-//}
+- (void)addTapGestureFromMapView:(MKMapView *)mapView {
+    if (!_tapGesture && mapView) {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mapTapped:)];
+        [mapView addGestureRecognizer:_tapGesture];
+        [_tapGesture release];
+    }
+}
+
+- (void)removeTapGestureFromMapView:(MKMapView *)mapView {
+    if (_tapGesture && mapView) {
+        [mapView removeGestureRecognizer:_tapGesture];
+        _tapGesture = nil;
+    }
+}
 
 
 #pragma mark - Map Methods
@@ -198,22 +227,13 @@
 
 - (void)mapTapped:(UITapGestureRecognizer *)tap {
     if ([_searchBar isFirstResponder]) {
-        //        CGPoint point = _baseView.center;
-        //        point.y += 210;
-        //        CGContextRef context = UIGraphicsGetCurrentContext();
-        //        [UIView beginAnimations:nil context:context];
-        //        [UIView setAnimationDuration:.3f];
-        //        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        //        [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:_baseView cache:YES];
-        //        _baseView.transform = CGAffineTransformIdentity;
-        //        _baseView.center = point;
         [_searchBar resignFirstResponder];
         [self removeTapGestureFromMapView:_mapView];
-        //        [UIView commitAnimations];
+        [self moveViewDown];
     }
 }
 
-- (IBAction)mapTypeSwitched:(id)sender {
+- (void)mapTypeSwitched:(id)sender {
     switch (((UISegmentedControl *)sender).selectedSegmentIndex) {
         case 0:
         {
@@ -226,47 +246,99 @@
             break;
             
         }
+        case 2:
+        {
+            _mapView.mapType = MKMapTypeHybrid;
+            break;
+        }
         default:
             break;
     }
 }
 
 #pragma mark - UISearchBar Delegate
+- (void)moveViewUp
+{
+    UIView *theView = _searchBar;
+    CGPoint point = theView.center;
+    point.y -= KEYBOARD_HEIGHT;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:ANIMATION_SPEED];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:theView cache:YES];
+    theView.transform = CGAffineTransformIdentity;
+    theView.center = point;
+    [UIView commitAnimations];
+}
+
+- (void)moveViewDown
+{
+    UIView *theView = _searchBar;
+    CGPoint point = theView.center;
+    point.y += KEYBOARD_HEIGHT;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:ANIMATION_SPEED];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:theView cache:YES];
+    theView.transform = CGAffineTransformIdentity;
+    theView.center = point;
+    [UIView commitAnimations];
+}
+
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     [self addTapGestureFromMapView:_mapView];
-    
+    [self moveViewUp];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self removeTapGestureFromMapView:_mapView];
+    [self moveViewDown];
+    [searchBar resignFirstResponder];
 //    _searchString = _searchBar.text;
 //    [_searchBar resignFirstResponder];
 //    NSLog(@"Search:%@", _searchString);
-//    NSString *searchStr = [self _encodeString:_searchString];
-//    NSMutableString *url = [NSMutableString stringWithString:kGoogleGeoApi];
-//    [url appendString:searchStr];
-//    [url appendString:@"&language=zh-CN&sensor=true"];
+    NSString *searchStr = [self _encodeString:searchBar.text];
+    NSMutableString *url = [NSMutableString stringWithString:kGoogleGeoApi];
+    [url appendString:searchStr];
+    [url appendString:@"&language=zh-CN&sensor=true"];
     
-//    NSLog(@"%@", url);
-//    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
-//    [request setDelegate:self];
-//    [request startAsynchronous];
+    NSLog(@"%@", url);
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:url]];
+    [request setDelegate:self];
+    [request startAsynchronous];
     
+}
+
+#pragma mark - UIActionSheet Delegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *addStr = _selectedAnnotation.address;
+    CLLocationCoordinate2D cood = _selectedAnnotation.coordinate;
+    switch (buttonIndex) {
+        case 0:
+            [delegate setStartLocation:addStr coordinate:cood];
+            break;
+        case 1:
+            [delegate setTargetLocation:addStr coordinate:cood];
+            break;
+        default:
+            break;
+    }    
 }
 
 #pragma mark - MKMapView Delegate
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
+    if ([view.annotation isKindOfClass:[PlaceAnnotation class]]) {
+        _selectedAnnotation = view.annotation;
+    }
     
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择地点类型" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"出发地", @"目的地", nil];
     [sheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
     [sheet showInView:self.view];
     [sheet release];
-    NSString *str = nil;
-//    if ([view.annotation isKindOfClass:[PlaceAnnotation class]]) {
-//        _locationStr = ((PlaceAnnotation *)view.annotation).address;
-//    }
-    
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
@@ -349,7 +421,6 @@ bool showSelf = NO;
             [anno release];
             firstAnno = anno;
         }
-        _searchBar.hidden = YES;
         if (firstAnno) {
             [self mapView:_mapView moveToCoordinate:firstAnno.coordinate];
         }

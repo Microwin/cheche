@@ -9,7 +9,6 @@
 #import "MainViewController.h"
 #import "ASIHTTPRequest.h"
 #import "CJSONDeserializer.h"
-#import "MapViewController.h"
 
 #define kDataFile @"Data.plist"
 #define SHEET_START_BTN_INDEX     0
@@ -93,6 +92,7 @@ static ASIHTTPRequest *kRequest = nil;
     [btn2 setBackgroundImage:img forState:UIControlStateNormal];
     img = [UIImage imageNamed:@"send_btn02.png"];
     [btn2 setBackgroundImage:img forState:UIControlStateHighlighted];
+    [btn2 addTarget:self action:@selector(commit:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
     
     img = [UIImage imageNamed:@"map_btn.png"];
@@ -105,11 +105,13 @@ static ASIHTTPRequest *kRequest = nil;
     _targetPointTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 164, 197, 31)];
     _targetPointTextField.placeholder = @"请在地图上选择或输入";
     _targetPointTextField.borderStyle = UITextBorderStyleNone;
+    _targetPointTextField.delegate = self;
     [self.view addSubview:_targetPointTextField];
     
     _startPointTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 114, 197, 31)];
     _startPointTextField.placeholder = @"请在地图上选择或输入";
     _startPointTextField.borderStyle = UITextBorderStyleNone;
+    _startPointTextField.delegate = self;
     [self.view addSubview:_startPointTextField];
     
     _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 212, 197, 31)];
@@ -117,7 +119,6 @@ static ASIHTTPRequest *kRequest = nil;
     _telTextField.borderStyle = UITextBorderStyleNone;
     _telTextField.delegate = self;
     [self.view addSubview:_telTextField];
-    
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -204,6 +205,7 @@ static ASIHTTPRequest *kRequest = nil;
 - (void)showMap:(id)sender
 {
     _mapViewController = [[MapViewController alloc] init];
+    _mapViewController.delegate = self;
     _mapViewController.modalTransitionStyle = UIModalTransitionStylePartialCurl;
     [self presentModalViewController:_mapViewController animated:YES];
 }
@@ -262,7 +264,7 @@ static ASIHTTPRequest *kRequest = nil;
 
 
 //提交信息
-- (IBAction)commit:(id)sender {
+- (void)commit:(id)sender {
     NSString *startString = _startPointTextField.text;  //出发地
     NSString *targetString = _targetPointTextField.text;    //目的地
     NSString *userTel = _telTextField.text; //电话
@@ -286,16 +288,12 @@ static ASIHTTPRequest *kRequest = nil;
 }
 
 //清空当前输入的订单数据
-//- (void)clear {
-//    _startPointTextField.text = @"";
-//    _targetPointTextField.text = @"";
-//    _telTextField.text = @"";
-//    [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
-//    _mapStyleSwitch.selectedSegmentIndex = 0;
-//    _searchBar.text = @"";
-//    _searchBar.hidden = YES;
-//    [self removeAnnotations];
-//}
+- (void)clear {
+    _startPointTextField.text = @"";
+    _targetPointTextField.text = @"";
+    _telTextField.text = @"";
+    [_companyButton setTitle:@"出租公司选择" forState:UIControlStateNormal];
+}
 
 #pragma mark - Alert Delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -332,6 +330,17 @@ static ASIHTTPRequest *kRequest = nil;
     [_companyButton setTitle:name forState:UIControlStateNormal];
 }
 
+#pragma mark - Map Delegate
+- (void)setTargetLocation:(NSString *)location coordinate:(CLLocationCoordinate2D)coor
+{
+    _targetPointTextField.text = location;
+    _targetCoordinate = coor;
+}
 
+- (void)setStartLocation:(NSString *)location coordinate:(CLLocationCoordinate2D)coor
+{
+    _startPointTextField.text = location;
+    _startCoordinate = coor;
+}
 
 @end

@@ -8,20 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "PlaceAnnotation.h"
 #import "LocateAndDownload.h"
 
 @class ASIHTTPRequest;
+@class PlaceAnnotation;
 
 @protocol MapDelegate <NSObject>
-
-
+- (void)setStartLocation:(NSString *)location coordinate:(CLLocationCoordinate2D)coor;
+- (void)setTargetLocation:(NSString *)location coordinate:(CLLocationCoordinate2D)coor;
 @end
 
-@interface MapViewController : UIViewController<MKMapViewDelegate, LocateSelfDelegate> {
+@interface MapViewController : UIViewController<MKMapViewDelegate,  LocateSelfDelegate, UISearchBarDelegate, UIActionSheetDelegate> {
     id<MapDelegate> delegate;
     MKMapView *_mapView;
     UISearchBar *_searchBar;
+    UISegmentedControl *_mapStyleControl;
+    UITapGestureRecognizer *_tapGesture;
+    PlaceAnnotation *_selectedAnnotation;                                                
 }
 @property (nonatomic, assign) id<MapDelegate> delegate;
 @end

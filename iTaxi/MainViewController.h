@@ -10,8 +10,9 @@
 #import "PlaceAnnotation.h"
 #import "LocateAndDownload.h"
 #import "TaxiCompanyViewController.h"
-@class MapViewController;
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, CompanySelectDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate> {
+#import "MapViewController.h"
+
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, CompanySelectDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UITextFieldDelegate, MapDelegate> {
 @private
     UITextField *_startPointTextField;  //出发地textfield
     UITextField *_targetPointTextField; //目的地textfield
