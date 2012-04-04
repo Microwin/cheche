@@ -65,10 +65,10 @@
     [self.view addSubview:_searchBar];
     [_searchBar release];
     
-    _mapStyleControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Statellite", nil), NSLocalizedString(@"Hybird", nil), nil]];
-    _mapStyleControl.frame = CGRectMake(160, 40, 140, 30);
+    _mapStyleControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"Standard", nil), NSLocalizedString(@"Satellite", nil), NSLocalizedString(@"Hybrid", nil), nil]];
+    _mapStyleControl.frame = CGRectMake(120, 60, 180, 30);
     _mapStyleControl.segmentedControlStyle = UISegmentedControlStyleBar;
-    _mapStyleControl.tintColor = [UIColor darkGrayColor];
+    _mapStyleControl.tintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
     _mapStyleControl.selectedSegmentIndex = 0;
     [_mapStyleControl addTarget:self action:@selector(mapTypeSwitched:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_mapStyleControl];
@@ -296,9 +296,6 @@
     [self removeTapGestureFromMapView:_mapView];
     [self moveViewDown];
     [searchBar resignFirstResponder];
-//    _searchString = _searchBar.text;
-//    [_searchBar resignFirstResponder];
-//    NSLog(@"Search:%@", _searchString);
     NSString *searchStr = [self _encodeString:searchBar.text];
     NSMutableString *url = [NSMutableString stringWithString:kGoogleGeoApi];
     [url appendString:searchStr];

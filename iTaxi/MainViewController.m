@@ -14,6 +14,9 @@
 #define SHEET_START_BTN_INDEX     0
 #define SHEET_TARGET_BTN_INDEX    1
 
+#pragma mark - Define Tags
+#define TAG_TELEPHONE_BTN   100
+
 @interface MainViewController(private)
 
 @end
@@ -77,14 +80,15 @@ static ASIHTTPRequest *kRequest = nil;
     [self.view addSubview:imgView];
     
     img = [UIImage imageNamed:@"change_btn01.png"];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitle:@"请选择出租车公司" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    btn.frame = CGRectMake(7, 287, 313, 47);
-    [btn setBackgroundImage:img forState:UIControlStateNormal];
+    _companyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_companyButton setTitle:@"请选择出租车公司" forState:UIControlStateNormal];
+    [_companyButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _companyButton.frame = CGRectMake(7, 287, 313, 47);
+    [_companyButton setBackgroundImage:img forState:UIControlStateNormal];
     img = [UIImage imageNamed:@"change_btn02.png"];
-    [btn setBackgroundImage:img forState:UIControlStateHighlighted];
-    [self.view addSubview:btn];
+    [_companyButton setBackgroundImage:img forState:UIControlStateHighlighted];
+    [_companyButton addTarget:self action:@selector(selectCompany:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_companyButton];
     
     img = [UIImage imageNamed:@"send_btn01.png"];
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -102,6 +106,15 @@ static ASIHTTPRequest *kRequest = nil;
     [btn3 addTarget:self action:@selector(showMap:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
     
+    img = [UIImage imageNamed:@"history_btn01.png"];
+    UIButton *historyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    historyBtn.frame = CGRectMake(249, 0, 71, 32);
+    [historyBtn setBackgroundImage:img forState:UIControlStateNormal];
+    img = [UIImage imageNamed:@"histroy_btn02.png"];
+    [historyBtn setBackgroundImage:img forState:UIControlStateHighlighted];
+    [historyBtn addTarget:self action:@selector(showHistroy:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:historyBtn];
+    
     _targetPointTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 164, 197, 31)];
     _targetPointTextField.placeholder = @"请在地图上选择或输入";
     _targetPointTextField.borderStyle = UITextBorderStyleNone;
@@ -117,7 +130,9 @@ static ASIHTTPRequest *kRequest = nil;
     _telTextField = [[UITextField alloc] initWithFrame:CGRectMake(90, 212, 197, 31)];
     _telTextField.placeholder = @"调度中心将以此与您联系";
     _telTextField.borderStyle = UITextBorderStyleNone;
+    _telTextField.keyboardType = UIKeyboardTypeNumberPad;
     _telTextField.delegate = self;
+    _telTextField.tag = TAG_TELEPHONE_BTN;
     [self.view addSubview:_telTextField];
 }
 
@@ -137,7 +152,7 @@ static ASIHTTPRequest *kRequest = nil;
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (IBAction)showInfo:(id)sender
+- (void)showHistroy:(id)sender
 {    
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
     controller.delegate = self;
@@ -175,7 +190,6 @@ static ASIHTTPRequest *kRequest = nil;
     [_startPointTextField release];
     [_targetPointTextField release];
     [_telTextField release];
-    [_companyButton release];
     [super dealloc];
 }
 
@@ -217,8 +231,8 @@ static ASIHTTPRequest *kRequest = nil;
 //    [_searchBar resignFirstResponder];
 //}
 
-- (IBAction)companyButtonPressed:(id)sender {
-    TaxiCompanyViewController *companyViewController = [[TaxiCompanyViewController alloc] initWithStyle:UITableViewStylePlain];
+- (void)selectCompany:(id)sender {
+    TaxiCompanyViewController *companyViewController = [[TaxiCompanyViewController alloc] initWithStyle:UITableViewStyleGrouped];
     companyViewController.delegate = self;
     [self presentModalViewController:companyViewController animated:YES];
     [companyViewController release];
@@ -341,6 +355,37 @@ static ASIHTTPRequest *kRequest = nil;
 {
     _startPointTextField.text = location;
     _startCoordinate = coor;
+}
+
+#pragma mark - View Animation
+- (void)moveViewUp
+{
+    UIView *theView = self.view;
+    CGPoint point = theView.center;
+    point.y -= 200;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:theView cache:YES];
+    theView.transform = CGAffineTransformIdentity;
+    theView.center = point;
+    [UIView commitAnimations];
+}
+
+- (void)moveViewDown
+{
+    UIView *theView = self.view;
+    CGPoint point = theView.center;
+    point.y += 200;
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionNone forView:theView cache:YES];
+    theView.transform = CGAffineTransformIdentity;
+    theView.center = point;
+    [UIView commitAnimations];
 }
 
 @end
