@@ -5,10 +5,3 @@
   Created by 卞 中杰 on 12-4-5.
   Copyright (c) 2012年 淘米. All rights reserved.
 */
-
-//Map
-"Standard" = "地图";
-
-"Satellite" = "卫星";
-
-"Hybrid" = "混合";
