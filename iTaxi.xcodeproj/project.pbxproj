@@ -69,6 +69,8 @@
 		A959859815297D76000C87A2 /* send_btn02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A959859315297D76000C87A2 /* send_btn02@2x.png */; };
 		A95A82DC13B850D200FC730D /* HistoryTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A95A82DB13B850D200FC730D /* HistoryTableCell.m */; };
 		A95A82DF13B850E200FC730D /* HistoryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A95A82DE13B850E200FC730D /* HistoryTableCell.xib */; };
+		A97B2B31153142A3003AE888 /* history_btn01@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97B2B2F153142A3003AE888 /* history_btn01@2x.png */; };
+		A97B2B32153142A3003AE888 /* history_btn02@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97B2B30153142A3003AE888 /* history_btn02@2x.png */; };
 		A98E2491152AD84700D3D917 /* Window.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98E2493152AD84700D3D917 /* Window.xib */; };
 		A9B892C113B464880084DE04 /* GoogleLocationApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A9B892C013B464880084DE04 /* GoogleLocationApi.m */; };
 		A9C12F52152DDD7F0076CDE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A9C12F54152DDD7F0076CDE3 /* Localizable.strings */; };
@@ -192,6 +194,8 @@
 		A95A82DA13B850D200FC730D /* HistoryTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableCell.h; sourceTree = "<group>"; };
 		A95A82DB13B850D200FC730D /* HistoryTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableCell.m; sourceTree = "<group>"; };
 		A95A82DE13B850E200FC730D /* HistoryTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableCell.xib; sourceTree = "<group>"; };
+		A97B2B2F153142A3003AE888 /* history_btn01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history_btn01@2x.png"; sourceTree = "<group>"; };
+		A97B2B30153142A3003AE888 /* history_btn02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history_btn02@2x.png"; sourceTree = "<group>"; };
 		A98E2492152AD84700D3D917 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Window.xib; sourceTree = "<group>"; };
 		A98E2494152AD85400D3D917 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "zh-Hans"; path = "zh-Hans.lproj/Window.xib"; sourceTree = "<group>"; };
 		A9B892BF13B464880084DE04 /* GoogleLocationApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleLocationApi.h; sourceTree = "<group>"; };
@@ -484,6 +488,8 @@
 		A959857E15297D37000C87A2 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				A97B2B2F153142A3003AE888 /* history_btn01@2x.png */,
+				A97B2B30153142A3003AE888 /* history_btn02@2x.png */,
 				A959858F15297D76000C87A2 /* change_btn01@2x.png */,
 				A959859015297D76000C87A2 /* change_btn02@2x.png */,
 				A959859115297D76000C87A2 /* map_btn@2x.png */,
@@ -592,6 +598,8 @@
 				A9E5047C1529EB6900123A08 /* background@2x.png in Resources */,
 				A98E2491152AD84700D3D917 /* Window.xib in Resources */,
 				A9C12F52152DDD7F0076CDE3 /* Localizable.strings in Resources */,
+				A97B2B31153142A3003AE888 /* history_btn01@2x.png in Resources */,
+				A97B2B32153142A3003AE888 /* history_btn02@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
